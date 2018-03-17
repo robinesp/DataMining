@@ -1,0 +1,1723 @@
+
+% Default to the notebook output style
+
+    
+
+
+% Inherit from the specified cell style.
+
+
+
+
+    
+\documentclass[11pt]{article}
+
+    
+    
+    \usepackage[T1]{fontenc}
+    % Nicer default font (+ math font) than Computer Modern for most use cases
+    \usepackage{mathpazo}
+
+    % Basic figure setup, for now with no caption control since it's done
+    % automatically by Pandoc (which extracts ![](path) syntax from Markdown).
+    \usepackage{graphicx}
+    % We will generate all images so they have a width \maxwidth. This means
+    % that they will get their normal width if they fit onto the page, but
+    % are scaled down if they would overflow the margins.
+    \makeatletter
+    \def\maxwidth{\ifdim\Gin@nat@width>\linewidth\linewidth
+    \else\Gin@nat@width\fi}
+    \makeatother
+    \let\Oldincludegraphics\includegraphics
+    % Set max figure width to be 80% of text width, for now hardcoded.
+    \renewcommand{\includegraphics}[1]{\Oldincludegraphics[width=.8\maxwidth]{#1}}
+    % Ensure that by default, figures have no caption (until we provide a
+    % proper Figure object with a Caption API and a way to capture that
+    % in the conversion process - todo).
+    \usepackage{caption}
+    \DeclareCaptionLabelFormat{nolabel}{}
+    \captionsetup{labelformat=nolabel}
+
+    \usepackage{adjustbox} % Used to constrain images to a maximum size 
+    \usepackage{xcolor} % Allow colors to be defined
+    \usepackage{enumerate} % Needed for markdown enumerations to work
+    \usepackage{geometry} % Used to adjust the document margins
+    \usepackage{amsmath} % Equations
+    \usepackage{amssymb} % Equations
+    \usepackage{textcomp} % defines textquotesingle
+    % Hack from http://tex.stackexchange.com/a/47451/13684:
+    \AtBeginDocument{%
+        \def\PYZsq{\textquotesingle}% Upright quotes in Pygmentized code
+    }
+    \usepackage{upquote} % Upright quotes for verbatim code
+    \usepackage{eurosym} % defines \euro
+    \usepackage[mathletters]{ucs} % Extended unicode (utf-8) support
+    \usepackage[utf8x]{inputenc} % Allow utf-8 characters in the tex document
+    \usepackage{fancyvrb} % verbatim replacement that allows latex
+    \usepackage{grffile} % extends the file name processing of package graphics 
+                         % to support a larger range 
+    % The hyperref package gives us a pdf with properly built
+    % internal navigation ('pdf bookmarks' for the table of contents,
+    % internal cross-reference links, web links for URLs, etc.)
+    \usepackage{hyperref}
+    \usepackage{longtable} % longtable support required by pandoc >1.10
+    \usepackage{booktabs}  % table support for pandoc > 1.12.2
+    \usepackage[inline]{enumitem} % IRkernel/repr support (it uses the enumerate* environment)
+    \usepackage[normalem]{ulem} % ulem is needed to support strikethroughs (\sout)
+                                % normalem makes italics be italics, not underlines
+    
+
+    
+    
+    % Colors for the hyperref package
+    \definecolor{urlcolor}{rgb}{0,.145,.698}
+    \definecolor{linkcolor}{rgb}{.71,0.21,0.01}
+    \definecolor{citecolor}{rgb}{.12,.54,.11}
+
+    % ANSI colors
+    \definecolor{ansi-black}{HTML}{3E424D}
+    \definecolor{ansi-black-intense}{HTML}{282C36}
+    \definecolor{ansi-red}{HTML}{E75C58}
+    \definecolor{ansi-red-intense}{HTML}{B22B31}
+    \definecolor{ansi-green}{HTML}{00A250}
+    \definecolor{ansi-green-intense}{HTML}{007427}
+    \definecolor{ansi-yellow}{HTML}{DDB62B}
+    \definecolor{ansi-yellow-intense}{HTML}{B27D12}
+    \definecolor{ansi-blue}{HTML}{208FFB}
+    \definecolor{ansi-blue-intense}{HTML}{0065CA}
+    \definecolor{ansi-magenta}{HTML}{D160C4}
+    \definecolor{ansi-magenta-intense}{HTML}{A03196}
+    \definecolor{ansi-cyan}{HTML}{60C6C8}
+    \definecolor{ansi-cyan-intense}{HTML}{258F8F}
+    \definecolor{ansi-white}{HTML}{C5C1B4}
+    \definecolor{ansi-white-intense}{HTML}{A1A6B2}
+
+    % commands and environments needed by pandoc snippets
+    % extracted from the output of `pandoc -s`
+    \providecommand{\tightlist}{%
+      \setlength{\itemsep}{0pt}\setlength{\parskip}{0pt}}
+    \DefineVerbatimEnvironment{Highlighting}{Verbatim}{commandchars=\\\{\}}
+    % Add ',fontsize=\small' for more characters per line
+    \newenvironment{Shaded}{}{}
+    \newcommand{\KeywordTok}[1]{\textcolor[rgb]{0.00,0.44,0.13}{\textbf{{#1}}}}
+    \newcommand{\DataTypeTok}[1]{\textcolor[rgb]{0.56,0.13,0.00}{{#1}}}
+    \newcommand{\DecValTok}[1]{\textcolor[rgb]{0.25,0.63,0.44}{{#1}}}
+    \newcommand{\BaseNTok}[1]{\textcolor[rgb]{0.25,0.63,0.44}{{#1}}}
+    \newcommand{\FloatTok}[1]{\textcolor[rgb]{0.25,0.63,0.44}{{#1}}}
+    \newcommand{\CharTok}[1]{\textcolor[rgb]{0.25,0.44,0.63}{{#1}}}
+    \newcommand{\StringTok}[1]{\textcolor[rgb]{0.25,0.44,0.63}{{#1}}}
+    \newcommand{\CommentTok}[1]{\textcolor[rgb]{0.38,0.63,0.69}{\textit{{#1}}}}
+    \newcommand{\OtherTok}[1]{\textcolor[rgb]{0.00,0.44,0.13}{{#1}}}
+    \newcommand{\AlertTok}[1]{\textcolor[rgb]{1.00,0.00,0.00}{\textbf{{#1}}}}
+    \newcommand{\FunctionTok}[1]{\textcolor[rgb]{0.02,0.16,0.49}{{#1}}}
+    \newcommand{\RegionMarkerTok}[1]{{#1}}
+    \newcommand{\ErrorTok}[1]{\textcolor[rgb]{1.00,0.00,0.00}{\textbf{{#1}}}}
+    \newcommand{\NormalTok}[1]{{#1}}
+    
+    % Additional commands for more recent versions of Pandoc
+    \newcommand{\ConstantTok}[1]{\textcolor[rgb]{0.53,0.00,0.00}{{#1}}}
+    \newcommand{\SpecialCharTok}[1]{\textcolor[rgb]{0.25,0.44,0.63}{{#1}}}
+    \newcommand{\VerbatimStringTok}[1]{\textcolor[rgb]{0.25,0.44,0.63}{{#1}}}
+    \newcommand{\SpecialStringTok}[1]{\textcolor[rgb]{0.73,0.40,0.53}{{#1}}}
+    \newcommand{\ImportTok}[1]{{#1}}
+    \newcommand{\DocumentationTok}[1]{\textcolor[rgb]{0.73,0.13,0.13}{\textit{{#1}}}}
+    \newcommand{\AnnotationTok}[1]{\textcolor[rgb]{0.38,0.63,0.69}{\textbf{\textit{{#1}}}}}
+    \newcommand{\CommentVarTok}[1]{\textcolor[rgb]{0.38,0.63,0.69}{\textbf{\textit{{#1}}}}}
+    \newcommand{\VariableTok}[1]{\textcolor[rgb]{0.10,0.09,0.49}{{#1}}}
+    \newcommand{\ControlFlowTok}[1]{\textcolor[rgb]{0.00,0.44,0.13}{\textbf{{#1}}}}
+    \newcommand{\OperatorTok}[1]{\textcolor[rgb]{0.40,0.40,0.40}{{#1}}}
+    \newcommand{\BuiltInTok}[1]{{#1}}
+    \newcommand{\ExtensionTok}[1]{{#1}}
+    \newcommand{\PreprocessorTok}[1]{\textcolor[rgb]{0.74,0.48,0.00}{{#1}}}
+    \newcommand{\AttributeTok}[1]{\textcolor[rgb]{0.49,0.56,0.16}{{#1}}}
+    \newcommand{\InformationTok}[1]{\textcolor[rgb]{0.38,0.63,0.69}{\textbf{\textit{{#1}}}}}
+    \newcommand{\WarningTok}[1]{\textcolor[rgb]{0.38,0.63,0.69}{\textbf{\textit{{#1}}}}}
+    
+    
+    % Define a nice break command that doesn't care if a line doesn't already
+    % exist.
+    \def\br{\hspace*{\fill} \\* }
+    % Math Jax compatability definitions
+    \def\gt{>}
+    \def\lt{<}
+    % Document parameters
+    \title{Assignment 2}
+    
+    
+    
+
+    % Pygments definitions
+    
+\makeatletter
+\def\PY@reset{\let\PY@it=\relax \let\PY@bf=\relax%
+    \let\PY@ul=\relax \let\PY@tc=\relax%
+    \let\PY@bc=\relax \let\PY@ff=\relax}
+\def\PY@tok#1{\csname PY@tok@#1\endcsname}
+\def\PY@toks#1+{\ifx\relax#1\empty\else%
+    \PY@tok{#1}\expandafter\PY@toks\fi}
+\def\PY@do#1{\PY@bc{\PY@tc{\PY@ul{%
+    \PY@it{\PY@bf{\PY@ff{#1}}}}}}}
+\def\PY#1#2{\PY@reset\PY@toks#1+\relax+\PY@do{#2}}
+
+\expandafter\def\csname PY@tok@w\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.73,0.73,0.73}{##1}}}
+\expandafter\def\csname PY@tok@c\endcsname{\let\PY@it=\textit\def\PY@tc##1{\textcolor[rgb]{0.25,0.50,0.50}{##1}}}
+\expandafter\def\csname PY@tok@cp\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.74,0.48,0.00}{##1}}}
+\expandafter\def\csname PY@tok@k\endcsname{\let\PY@bf=\textbf\def\PY@tc##1{\textcolor[rgb]{0.00,0.50,0.00}{##1}}}
+\expandafter\def\csname PY@tok@kp\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.00,0.50,0.00}{##1}}}
+\expandafter\def\csname PY@tok@kt\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.69,0.00,0.25}{##1}}}
+\expandafter\def\csname PY@tok@o\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.40,0.40,0.40}{##1}}}
+\expandafter\def\csname PY@tok@ow\endcsname{\let\PY@bf=\textbf\def\PY@tc##1{\textcolor[rgb]{0.67,0.13,1.00}{##1}}}
+\expandafter\def\csname PY@tok@nb\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.00,0.50,0.00}{##1}}}
+\expandafter\def\csname PY@tok@nf\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.00,0.00,1.00}{##1}}}
+\expandafter\def\csname PY@tok@nc\endcsname{\let\PY@bf=\textbf\def\PY@tc##1{\textcolor[rgb]{0.00,0.00,1.00}{##1}}}
+\expandafter\def\csname PY@tok@nn\endcsname{\let\PY@bf=\textbf\def\PY@tc##1{\textcolor[rgb]{0.00,0.00,1.00}{##1}}}
+\expandafter\def\csname PY@tok@ne\endcsname{\let\PY@bf=\textbf\def\PY@tc##1{\textcolor[rgb]{0.82,0.25,0.23}{##1}}}
+\expandafter\def\csname PY@tok@nv\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.10,0.09,0.49}{##1}}}
+\expandafter\def\csname PY@tok@no\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.53,0.00,0.00}{##1}}}
+\expandafter\def\csname PY@tok@nl\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.63,0.63,0.00}{##1}}}
+\expandafter\def\csname PY@tok@ni\endcsname{\let\PY@bf=\textbf\def\PY@tc##1{\textcolor[rgb]{0.60,0.60,0.60}{##1}}}
+\expandafter\def\csname PY@tok@na\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.49,0.56,0.16}{##1}}}
+\expandafter\def\csname PY@tok@nt\endcsname{\let\PY@bf=\textbf\def\PY@tc##1{\textcolor[rgb]{0.00,0.50,0.00}{##1}}}
+\expandafter\def\csname PY@tok@nd\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.67,0.13,1.00}{##1}}}
+\expandafter\def\csname PY@tok@s\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.73,0.13,0.13}{##1}}}
+\expandafter\def\csname PY@tok@sd\endcsname{\let\PY@it=\textit\def\PY@tc##1{\textcolor[rgb]{0.73,0.13,0.13}{##1}}}
+\expandafter\def\csname PY@tok@si\endcsname{\let\PY@bf=\textbf\def\PY@tc##1{\textcolor[rgb]{0.73,0.40,0.53}{##1}}}
+\expandafter\def\csname PY@tok@se\endcsname{\let\PY@bf=\textbf\def\PY@tc##1{\textcolor[rgb]{0.73,0.40,0.13}{##1}}}
+\expandafter\def\csname PY@tok@sr\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.73,0.40,0.53}{##1}}}
+\expandafter\def\csname PY@tok@ss\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.10,0.09,0.49}{##1}}}
+\expandafter\def\csname PY@tok@sx\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.00,0.50,0.00}{##1}}}
+\expandafter\def\csname PY@tok@m\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.40,0.40,0.40}{##1}}}
+\expandafter\def\csname PY@tok@gh\endcsname{\let\PY@bf=\textbf\def\PY@tc##1{\textcolor[rgb]{0.00,0.00,0.50}{##1}}}
+\expandafter\def\csname PY@tok@gu\endcsname{\let\PY@bf=\textbf\def\PY@tc##1{\textcolor[rgb]{0.50,0.00,0.50}{##1}}}
+\expandafter\def\csname PY@tok@gd\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.63,0.00,0.00}{##1}}}
+\expandafter\def\csname PY@tok@gi\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.00,0.63,0.00}{##1}}}
+\expandafter\def\csname PY@tok@gr\endcsname{\def\PY@tc##1{\textcolor[rgb]{1.00,0.00,0.00}{##1}}}
+\expandafter\def\csname PY@tok@ge\endcsname{\let\PY@it=\textit}
+\expandafter\def\csname PY@tok@gs\endcsname{\let\PY@bf=\textbf}
+\expandafter\def\csname PY@tok@gp\endcsname{\let\PY@bf=\textbf\def\PY@tc##1{\textcolor[rgb]{0.00,0.00,0.50}{##1}}}
+\expandafter\def\csname PY@tok@go\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.53,0.53,0.53}{##1}}}
+\expandafter\def\csname PY@tok@gt\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.00,0.27,0.87}{##1}}}
+\expandafter\def\csname PY@tok@err\endcsname{\def\PY@bc##1{\setlength{\fboxsep}{0pt}\fcolorbox[rgb]{1.00,0.00,0.00}{1,1,1}{\strut ##1}}}
+\expandafter\def\csname PY@tok@kc\endcsname{\let\PY@bf=\textbf\def\PY@tc##1{\textcolor[rgb]{0.00,0.50,0.00}{##1}}}
+\expandafter\def\csname PY@tok@kd\endcsname{\let\PY@bf=\textbf\def\PY@tc##1{\textcolor[rgb]{0.00,0.50,0.00}{##1}}}
+\expandafter\def\csname PY@tok@kn\endcsname{\let\PY@bf=\textbf\def\PY@tc##1{\textcolor[rgb]{0.00,0.50,0.00}{##1}}}
+\expandafter\def\csname PY@tok@kr\endcsname{\let\PY@bf=\textbf\def\PY@tc##1{\textcolor[rgb]{0.00,0.50,0.00}{##1}}}
+\expandafter\def\csname PY@tok@bp\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.00,0.50,0.00}{##1}}}
+\expandafter\def\csname PY@tok@fm\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.00,0.00,1.00}{##1}}}
+\expandafter\def\csname PY@tok@vc\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.10,0.09,0.49}{##1}}}
+\expandafter\def\csname PY@tok@vg\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.10,0.09,0.49}{##1}}}
+\expandafter\def\csname PY@tok@vi\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.10,0.09,0.49}{##1}}}
+\expandafter\def\csname PY@tok@vm\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.10,0.09,0.49}{##1}}}
+\expandafter\def\csname PY@tok@sa\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.73,0.13,0.13}{##1}}}
+\expandafter\def\csname PY@tok@sb\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.73,0.13,0.13}{##1}}}
+\expandafter\def\csname PY@tok@sc\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.73,0.13,0.13}{##1}}}
+\expandafter\def\csname PY@tok@dl\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.73,0.13,0.13}{##1}}}
+\expandafter\def\csname PY@tok@s2\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.73,0.13,0.13}{##1}}}
+\expandafter\def\csname PY@tok@sh\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.73,0.13,0.13}{##1}}}
+\expandafter\def\csname PY@tok@s1\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.73,0.13,0.13}{##1}}}
+\expandafter\def\csname PY@tok@mb\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.40,0.40,0.40}{##1}}}
+\expandafter\def\csname PY@tok@mf\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.40,0.40,0.40}{##1}}}
+\expandafter\def\csname PY@tok@mh\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.40,0.40,0.40}{##1}}}
+\expandafter\def\csname PY@tok@mi\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.40,0.40,0.40}{##1}}}
+\expandafter\def\csname PY@tok@il\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.40,0.40,0.40}{##1}}}
+\expandafter\def\csname PY@tok@mo\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.40,0.40,0.40}{##1}}}
+\expandafter\def\csname PY@tok@ch\endcsname{\let\PY@it=\textit\def\PY@tc##1{\textcolor[rgb]{0.25,0.50,0.50}{##1}}}
+\expandafter\def\csname PY@tok@cm\endcsname{\let\PY@it=\textit\def\PY@tc##1{\textcolor[rgb]{0.25,0.50,0.50}{##1}}}
+\expandafter\def\csname PY@tok@cpf\endcsname{\let\PY@it=\textit\def\PY@tc##1{\textcolor[rgb]{0.25,0.50,0.50}{##1}}}
+\expandafter\def\csname PY@tok@c1\endcsname{\let\PY@it=\textit\def\PY@tc##1{\textcolor[rgb]{0.25,0.50,0.50}{##1}}}
+\expandafter\def\csname PY@tok@cs\endcsname{\let\PY@it=\textit\def\PY@tc##1{\textcolor[rgb]{0.25,0.50,0.50}{##1}}}
+
+\def\PYZbs{\char`\\}
+\def\PYZus{\char`\_}
+\def\PYZob{\char`\{}
+\def\PYZcb{\char`\}}
+\def\PYZca{\char`\^}
+\def\PYZam{\char`\&}
+\def\PYZlt{\char`\<}
+\def\PYZgt{\char`\>}
+\def\PYZsh{\char`\#}
+\def\PYZpc{\char`\%}
+\def\PYZdl{\char`\$}
+\def\PYZhy{\char`\-}
+\def\PYZsq{\char`\'}
+\def\PYZdq{\char`\"}
+\def\PYZti{\char`\~}
+% for compatibility with earlier versions
+\def\PYZat{@}
+\def\PYZlb{[}
+\def\PYZrb{]}
+\makeatother
+
+
+    % Exact colors from NB
+    \definecolor{incolor}{rgb}{0.0, 0.0, 0.5}
+    \definecolor{outcolor}{rgb}{0.545, 0.0, 0.0}
+
+
+
+    
+    % Prevent overflowing lines due to hard-to-break entities
+    \sloppy 
+    % Setup hyperref package
+    \hypersetup{
+      breaklinks=true,  % so long urls are correctly broken across lines
+      colorlinks=true,
+      urlcolor=urlcolor,
+      linkcolor=linkcolor,
+      citecolor=citecolor,
+      }
+    % Slightly bigger margins than the latex defaults
+    
+    \geometry{verbose,tmargin=1in,bmargin=1in,lmargin=1in,rmargin=1in}
+    
+    
+
+    \begin{document}
+    
+    
+    \maketitle
+    
+    
+
+    
+    \subsection{Foundations of Data Mining: Assignment
+2}\label{foundations-of-data-mining-assignment-2}
+
+Please complete all assignments in this notebook. You should submit this
+notebook, as well as a PDF version (See File \textgreater{} Download
+as).
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}1}]:} \PY{c+c1}{\PYZsh{} Please fill in your names here}
+        \PY{n}{NAME\PYZus{}STUDENT\PYZus{}1} \PY{o}{=} \PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{Robin Esposito}\PY{l+s+s2}{\PYZdq{}}
+        \PY{n}{NAME\PYZus{}STUDENT\PYZus{}2} \PY{o}{=} \PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{Matej Grobelnik}\PY{l+s+s2}{\PYZdq{}}
+\end{Verbatim}
+
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}2}]:} \PY{o}{\PYZpc{}}\PY{k}{matplotlib} inline
+        \PY{k+kn}{from} \PY{n+nn}{preamble} \PY{k}{import} \PY{o}{*}
+        \PY{n}{plt}\PY{o}{.}\PY{n}{rcParams}\PY{p}{[}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{savefig.dpi}\PY{l+s+s1}{\PYZsq{}}\PY{p}{]} \PY{o}{=} \PY{l+m+mi}{100} \PY{c+c1}{\PYZsh{} This controls the size of your figures}
+        \PY{c+c1}{\PYZsh{} Comment out and restart notebook if you only want the last output of each cell.}
+        \PY{c+c1}{\PYZsh{}InteractiveShell.ast\PYZus{}node\PYZus{}interactivity = \PYZdq{}all\PYZdq{} }
+        \PY{n}{HTML}\PY{p}{(}\PY{l+s+s1}{\PYZsq{}\PYZsq{}\PYZsq{}}\PY{l+s+s1}{\PYZlt{}style\PYZgt{}html, body}\PY{l+s+s1}{\PYZob{}}\PY{l+s+s1}{overflow: visible !important\PYZcb{} .CodeMirror}\PY{l+s+s1}{\PYZob{}}\PY{l+s+s1}{min\PYZhy{}width:105}\PY{l+s+s1}{\PYZpc{}}\PY{l+s+s1}{ !important;\PYZcb{} .rise\PYZhy{}enabled .CodeMirror, .rise\PYZhy{}enabled .output\PYZus{}subarea}\PY{l+s+s1}{\PYZob{}}\PY{l+s+s1}{font\PYZhy{}size:140}\PY{l+s+s1}{\PYZpc{}}\PY{l+s+s1}{; line\PYZhy{}height:1.2; overflow: visible;\PYZcb{} .output\PYZus{}subarea pre}\PY{l+s+si}{\PYZob{}width:110\PYZpc{}\PYZcb{}}\PY{l+s+s1}{\PYZlt{}/style\PYZgt{}}\PY{l+s+s1}{\PYZsq{}\PYZsq{}\PYZsq{}}\PY{p}{)} \PY{c+c1}{\PYZsh{} For slides}
+\end{Verbatim}
+
+
+\begin{Verbatim}[commandchars=\\\{\}]
+{\color{outcolor}Out[{\color{outcolor}2}]:} <IPython.core.display.HTML object>
+\end{Verbatim}
+            
+    \subsection{Support Vector Bananas (4 points
+(2+2))}\label{support-vector-bananas-4-points-22}
+
+We will first explore SVM kernels and hyperparameters on an artificial
+dataset representing multiple banana shapes.
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}4}]:} \PY{k+kn}{from} \PY{n+nn}{sklearn}\PY{n+nn}{.}\PY{n+nn}{model\PYZus{}selection} \PY{k}{import} \PY{o}{*}
+        \PY{k+kn}{from} \PY{n+nn}{sklearn} \PY{k}{import} \PY{n}{svm}
+        \PY{k+kn}{from} \PY{n+nn}{sklearn}\PY{n+nn}{.}\PY{n+nn}{metrics} \PY{k}{import} \PY{n}{roc\PYZus{}auc\PYZus{}score}
+        \PY{k+kn}{from} \PY{n+nn}{sklearn}\PY{n+nn}{.}\PY{n+nn}{model\PYZus{}selection} \PY{k}{import} \PY{n}{GridSearchCV}
+        
+        \PY{n}{bananas} \PY{o}{=} \PY{n}{oml}\PY{o}{.}\PY{n}{datasets}\PY{o}{.}\PY{n}{get\PYZus{}dataset}\PY{p}{(}\PY{l+m+mi}{1460}\PY{p}{)} \PY{c+c1}{\PYZsh{} Download banana data}
+        \PY{n}{X}\PY{p}{,} \PY{n}{y} \PY{o}{=} \PY{n}{bananas}\PY{o}{.}\PY{n}{get\PYZus{}data}\PY{p}{(}\PY{n}{target}\PY{o}{=}\PY{n}{bananas}\PY{o}{.}\PY{n}{default\PYZus{}target\PYZus{}attribute}\PY{p}{)}\PY{p}{;}
+        \PY{n}{X\PYZus{}train}\PY{p}{,} \PY{n}{X\PYZus{}test}\PY{p}{,} \PY{n}{y\PYZus{}train}\PY{p}{,} \PY{n}{y\PYZus{}test} \PY{o}{=} \PY{n}{train\PYZus{}test\PYZus{}split}\PY{p}{(}\PY{n}{X}\PY{p}{,} \PY{n}{y}\PY{p}{,} \PY{n}{random\PYZus{}state}\PY{o}{=}\PY{l+m+mi}{0}\PY{p}{,} \PY{n}{test\PYZus{}size}\PY{o}{=}\PY{l+m+mi}{1}\PY{o}{/}\PY{l+m+mi}{4}\PY{p}{)}
+\end{Verbatim}
+
+
+    1 . Evaluate how well an SVM classifier can fit the data.
+
+\begin{itemize}
+\tightlist
+\item
+  Use a linear, polynomial and radial basis function (RBF) kernel, using
+  their default hyperparameters. Evaluate the performance of each kernel
+  using the test set and AUC. Which one works best?
+\item
+  Visualize the results using the visualization code also used in class
+  (under mglearn/plot\_svm.py \textgreater{} plot\_svm\_kernels). Also
+  show the AUC score and the number of support vectors. Explain
+  intuitively how well the data is fitted, why the kernel is (not) able
+  to fit the data, whether it is under- or overfitting, etc.
+\end{itemize}
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}3}]:} \PY{n}{auc\PYZus{}scores} \PY{o}{=} \PY{p}{\PYZob{}}\PY{p}{\PYZcb{}}
+        \PY{n}{n\PYZus{}vectors} \PY{o}{=} \PY{p}{\PYZob{}}\PY{p}{\PYZcb{}}
+        
+        \PY{k}{for} \PY{n}{kernel} \PY{o+ow}{in} \PY{p}{(}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{linear}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,} \PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{poly}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,} \PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{rbf}\PY{l+s+s1}{\PYZsq{}}\PY{p}{)}\PY{p}{:}
+            
+            \PY{n+nb}{print}\PY{p}{(}\PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{Kernel: }\PY{l+s+s2}{\PYZdq{}} \PY{o}{+} \PY{n+nb}{str}\PY{p}{(}\PY{n}{kernel}\PY{p}{)}\PY{p}{)}
+            
+            \PY{c+c1}{\PYZsh{}fit on train data and get AUC score on test}
+            \PY{n}{clf} \PY{o}{=} \PY{n}{svm}\PY{o}{.}\PY{n}{SVC}\PY{p}{(}\PY{n}{kernel}\PY{o}{=}\PY{n}{kernel}\PY{p}{)}
+            \PY{n}{clf}\PY{o}{.}\PY{n}{fit}\PY{p}{(}\PY{n}{X\PYZus{}train}\PY{p}{,} \PY{n}{y\PYZus{}train}\PY{p}{)}
+            \PY{n}{score} \PY{o}{=} \PY{n}{roc\PYZus{}auc\PYZus{}score}\PY{p}{(}\PY{n}{y\PYZus{}test}\PY{p}{,} \PY{n}{clf}\PY{o}{.}\PY{n}{decision\PYZus{}function}\PY{p}{(}\PY{n}{X\PYZus{}test}\PY{p}{)}\PY{p}{)}
+            \PY{n}{auc\PYZus{}scores}\PY{p}{[}\PY{n}{kernel}\PY{p}{]} \PY{o}{=} \PY{n}{score}
+            \PY{n+nb}{print}\PY{p}{(}\PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{AUC score: }\PY{l+s+si}{\PYZob{}:.3f\PYZcb{}}\PY{l+s+s2}{\PYZdq{}}\PY{o}{.}\PY{n}{format}\PY{p}{(}\PY{n}{score}\PY{p}{)}\PY{p}{)}
+            
+            \PY{c+c1}{\PYZsh{}get number of support vectors}
+            \PY{n}{n\PYZus{}vectors}\PY{p}{[}\PY{n}{kernel}\PY{p}{]} \PY{o}{=} \PY{n+nb}{len}\PY{p}{(}\PY{n}{clf}\PY{o}{.}\PY{n}{support\PYZus{}vectors\PYZus{}}\PY{p}{[}\PY{p}{:}\PY{p}{]}\PY{p}{)}
+            \PY{n+nb}{print}\PY{p}{(}\PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{Number of support vectors: }\PY{l+s+si}{\PYZob{}\PYZcb{}}\PY{l+s+s2}{\PYZdq{}}\PY{o}{.}\PY{n}{format}\PY{p}{(}\PY{n+nb}{len}\PY{p}{(}\PY{n}{clf}\PY{o}{.}\PY{n}{support\PYZus{}vectors\PYZus{}}\PY{p}{[}\PY{p}{:}\PY{p}{]}\PY{p}{)}\PY{p}{)}\PY{p}{)}
+            
+            \PY{n+nb}{print}\PY{p}{(}\PY{p}{)}
+\end{Verbatim}
+
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+Kernel: linear
+AUC score: 0.506
+Number of support vectors: 3613
+
+Kernel: poly
+AUC score: 0.755
+Number of support vectors: 3218
+
+Kernel: rbf
+AUC score: 0.970
+Number of support vectors: 1180
+
+
+    \end{Verbatim}
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}4}]:} \PY{c+c1}{\PYZsh{}define function to plot kernels}
+        
+        \PY{k}{def} \PY{n+nf}{plot\PYZus{}svm\PYZus{}kernel}\PY{p}{(}\PY{n}{clf}\PY{p}{,} \PY{n}{fignum}\PY{p}{,} \PY{n}{title}\PY{p}{,} \PY{n}{fig}\PY{p}{)}\PY{p}{:}
+            \PY{c+c1}{\PYZsh{} plot the line, the points, and the nearest vectors to the plane}
+            \PY{k}{if} \PY{n}{fig} \PY{o+ow}{is} \PY{k+kc}{None}\PY{p}{:}
+                \PY{n}{plt}\PY{o}{.}\PY{n}{figure}\PY{p}{(}\PY{n}{fignum}\PY{p}{,} \PY{n}{figsize}\PY{o}{=}\PY{p}{(}\PY{l+m+mi}{8}\PY{p}{,} \PY{l+m+mi}{6}\PY{p}{)}\PY{p}{)}
+                \PY{n}{plt}\PY{o}{.}\PY{n}{suptitle}\PY{p}{(}\PY{n}{title}\PY{p}{)}        
+            \PY{k}{else}\PY{p}{:}
+                \PY{n}{ax} \PY{o}{=} \PY{n}{fig}\PY{o}{.}\PY{n}{add\PYZus{}subplot}\PY{p}{(}\PY{l+m+mi}{3}\PY{p}{,}\PY{l+m+mi}{3}\PY{p}{,}\PY{n}{fignum}\PY{p}{)}
+                \PY{n}{plt}\PY{o}{.}\PY{n}{title}\PY{p}{(}\PY{n}{title}\PY{p}{)}
+        
+            \PY{n}{plt}\PY{o}{.}\PY{n}{scatter}\PY{p}{(}\PY{n}{clf}\PY{o}{.}\PY{n}{support\PYZus{}vectors\PYZus{}}\PY{p}{[}\PY{p}{:}\PY{p}{,} \PY{l+m+mi}{0}\PY{p}{]}\PY{p}{,} \PY{n}{clf}\PY{o}{.}\PY{n}{support\PYZus{}vectors\PYZus{}}\PY{p}{[}\PY{p}{:}\PY{p}{,} \PY{l+m+mi}{1}\PY{p}{]}\PY{p}{,} \PY{n}{s}\PY{o}{=}\PY{l+m+mi}{85}\PY{p}{,} \PY{n}{edgecolors}\PY{o}{=}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{k}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,} \PY{n}{c}\PY{o}{=}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{w}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,} \PY{n}{zorder}\PY{o}{=}\PY{l+m+mi}{10}\PY{p}{,} \PY{n}{alpha}\PY{o}{=}\PY{l+m+mf}{0.4}\PY{p}{)}
+            \PY{n}{plt}\PY{o}{.}\PY{n}{scatter}\PY{p}{(}\PY{n}{X\PYZus{}train}\PY{p}{[}\PY{p}{:}\PY{p}{,} \PY{l+m+mi}{0}\PY{p}{]}\PY{p}{,} \PY{n}{X\PYZus{}train}\PY{p}{[}\PY{p}{:}\PY{p}{,} \PY{l+m+mi}{1}\PY{p}{]}\PY{p}{,} \PY{n}{c}\PY{o}{=}\PY{n}{y\PYZus{}train}\PY{p}{,} \PY{n}{zorder}\PY{o}{=}\PY{l+m+mi}{10}\PY{p}{,} \PY{n}{cmap}\PY{o}{=}\PY{n}{plt}\PY{o}{.}\PY{n}{cm}\PY{o}{.}\PY{n}{bwr}\PY{p}{,} \PY{n}{alpha}\PY{o}{=}\PY{l+m+mf}{0.4}\PY{p}{)}
+        
+            \PY{c+c1}{\PYZsh{}for i, coef in enumerate(clf.dual\PYZus{}coef\PYZus{}[0]):}
+                \PY{c+c1}{\PYZsh{}plt.annotate(\PYZdq{}\PYZpc{}0.2f\PYZdq{} \PYZpc{} (coef), (clf.support\PYZus{}vectors\PYZus{}[i, 0]+0.15,clf.support\PYZus{}vectors\PYZus{}[i, 1]), fontsize=8, zorder=11)}
+        
+            \PY{n}{plt}\PY{o}{.}\PY{n}{axis}\PY{p}{(}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{tight}\PY{l+s+s1}{\PYZsq{}}\PY{p}{)}
+            \PY{n}{x\PYZus{}min} \PY{o}{=} \PY{o}{\PYZhy{}}\PY{l+m+mi}{3}
+            \PY{n}{x\PYZus{}max} \PY{o}{=} \PY{l+m+mi}{3}
+            \PY{n}{y\PYZus{}min} \PY{o}{=} \PY{o}{\PYZhy{}}\PY{l+m+mi}{3}
+            \PY{n}{y\PYZus{}max} \PY{o}{=} \PY{l+m+mi}{3}
+        
+            \PY{n}{XX}\PY{p}{,} \PY{n}{YY} \PY{o}{=} \PY{n}{np}\PY{o}{.}\PY{n}{mgrid}\PY{p}{[}\PY{n}{x\PYZus{}min}\PY{p}{:}\PY{n}{x\PYZus{}max}\PY{p}{:}\PY{l+m+mi}{200}\PY{n}{j}\PY{p}{,} \PY{n}{y\PYZus{}min}\PY{p}{:}\PY{n}{y\PYZus{}max}\PY{p}{:}\PY{l+m+mi}{200}\PY{n}{j}\PY{p}{]}
+            \PY{n}{Z} \PY{o}{=} \PY{n}{clf}\PY{o}{.}\PY{n}{decision\PYZus{}function}\PY{p}{(}\PY{n}{np}\PY{o}{.}\PY{n}{c\PYZus{}}\PY{p}{[}\PY{n}{XX}\PY{o}{.}\PY{n}{ravel}\PY{p}{(}\PY{p}{)}\PY{p}{,} \PY{n}{YY}\PY{o}{.}\PY{n}{ravel}\PY{p}{(}\PY{p}{)}\PY{p}{]}\PY{p}{)}
+        
+            \PY{c+c1}{\PYZsh{} Put the result into a color plot}
+            \PY{n}{Z} \PY{o}{=} \PY{n}{Z}\PY{o}{.}\PY{n}{reshape}\PY{p}{(}\PY{n}{XX}\PY{o}{.}\PY{n}{shape}\PY{p}{)}
+            \PY{k}{if} \PY{n}{fig} \PY{o+ow}{is} \PY{k+kc}{None}\PY{p}{:}
+                \PY{n}{plt}\PY{o}{.}\PY{n}{figure}\PY{p}{(}\PY{n}{fignum}\PY{p}{,} \PY{n}{figsize}\PY{o}{=}\PY{p}{(}\PY{l+m+mi}{8}\PY{p}{,} \PY{l+m+mi}{6}\PY{p}{)}\PY{p}{)}
+                \PY{n}{plt}\PY{o}{.}\PY{n}{contour}\PY{p}{(}\PY{n}{XX}\PY{p}{,} \PY{n}{YY}\PY{p}{,} \PY{n}{Z}\PY{p}{,} \PY{n}{colors}\PY{o}{=}\PY{p}{[}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{k}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,} \PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{k}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,} \PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{k}\PY{l+s+s1}{\PYZsq{}}\PY{p}{]}\PY{p}{,} \PY{n}{linestyles}\PY{o}{=}\PY{p}{[}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{\PYZhy{}\PYZhy{}}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,} \PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{\PYZhy{}}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,} \PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{\PYZhy{}\PYZhy{}}\PY{l+s+s1}{\PYZsq{}}\PY{p}{]}\PY{p}{,} \PY{n}{levels}\PY{o}{=}\PY{p}{[}\PY{o}{\PYZhy{}}\PY{o}{.}\PY{l+m+mi}{5}\PY{p}{,} \PY{l+m+mi}{0}\PY{p}{,} \PY{o}{.}\PY{l+m+mi}{5}\PY{p}{]}\PY{p}{)}
+            \PY{k}{else}\PY{p}{:}
+                \PY{n}{ax} \PY{o}{=} \PY{n}{fig}\PY{o}{.}\PY{n}{add\PYZus{}subplot}\PY{p}{(}\PY{l+m+mi}{3}\PY{p}{,}\PY{l+m+mi}{3}\PY{p}{,}\PY{n}{fignum}\PY{p}{)}
+                \PY{n}{ax}\PY{o}{.}\PY{n}{contour}\PY{p}{(}\PY{n}{XX}\PY{p}{,} \PY{n}{YY}\PY{p}{,} \PY{n}{Z}\PY{p}{,} \PY{n}{colors}\PY{o}{=}\PY{p}{[}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{k}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,} \PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{k}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,} \PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{k}\PY{l+s+s1}{\PYZsq{}}\PY{p}{]}\PY{p}{,} \PY{n}{linestyles}\PY{o}{=}\PY{p}{[}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{\PYZhy{}\PYZhy{}}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,} \PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{\PYZhy{}}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,} \PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{\PYZhy{}\PYZhy{}}\PY{l+s+s1}{\PYZsq{}}\PY{p}{]}\PY{p}{,} \PY{n}{levels}\PY{o}{=}\PY{p}{[}\PY{o}{\PYZhy{}}\PY{o}{.}\PY{l+m+mi}{5}\PY{p}{,} \PY{l+m+mi}{0}\PY{p}{,} \PY{o}{.}\PY{l+m+mi}{5}\PY{p}{]}\PY{p}{)}
+        
+            \PY{n}{plt}\PY{o}{.}\PY{n}{xlim}\PY{p}{(}\PY{n}{x\PYZus{}min}\PY{p}{,} \PY{n}{x\PYZus{}max}\PY{p}{)}
+            \PY{n}{plt}\PY{o}{.}\PY{n}{ylim}\PY{p}{(}\PY{n}{y\PYZus{}min}\PY{p}{,} \PY{n}{y\PYZus{}max}\PY{p}{)}
+        
+            \PY{n}{plt}\PY{o}{.}\PY{n}{xticks}\PY{p}{(}\PY{p}{(}\PY{p}{)}\PY{p}{)}
+            \PY{n}{plt}\PY{o}{.}\PY{n}{yticks}\PY{p}{(}\PY{p}{(}\PY{p}{)}\PY{p}{)}
+\end{Verbatim}
+
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}5}]:} \PY{c+c1}{\PYZsh{} fit the models and plot}
+        \PY{k}{for} \PY{n}{i}\PY{p}{,} \PY{n}{kernel} \PY{o+ow}{in} \PY{n+nb}{enumerate}\PY{p}{(}\PY{p}{[}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{linear}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,} \PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{poly}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,} \PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{rbf}\PY{l+s+s1}{\PYZsq{}}\PY{p}{]}\PY{p}{)}\PY{p}{:}
+            \PY{n}{clf} \PY{o}{=} \PY{n}{svm}\PY{o}{.}\PY{n}{SVC}\PY{p}{(}\PY{n}{kernel}\PY{o}{=}\PY{n}{kernel}\PY{p}{)}
+            \PY{n}{clf}\PY{o}{.}\PY{n}{fit}\PY{p}{(}\PY{n}{X\PYZus{}train}\PY{p}{,} \PY{n}{y\PYZus{}train}\PY{p}{)}
+            \PY{n}{plot\PYZus{}svm\PYZus{}kernel}\PY{p}{(}\PY{n}{clf}\PY{p}{,} \PY{n}{i}\PY{p}{,} \PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{kernel = }\PY{l+s+si}{\PYZpc{}s}\PY{l+s+s1}{\PYZsq{}} \PY{o}{\PYZpc{}} \PY{n}{kernel}\PY{p}{,} \PY{k+kc}{None}\PY{p}{)}
+        
+        \PY{n}{plt}\PY{o}{.}\PY{n}{show}\PY{p}{(}\PY{p}{)}
+\end{Verbatim}
+
+
+    \begin{center}
+    \adjustimage{max size={0.9\linewidth}{0.9\paperheight}}{output_8_0.pdf}
+    \end{center}
+    { \hspace*{\fill} \\}
+    
+    \begin{center}
+    \adjustimage{max size={0.9\linewidth}{0.9\paperheight}}{output_8_1.pdf}
+    \end{center}
+    { \hspace*{\fill} \\}
+    
+    \begin{center}
+    \adjustimage{max size={0.9\linewidth}{0.9\paperheight}}{output_8_2.pdf}
+    \end{center}
+    { \hspace*{\fill} \\}
+    
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}6}]:} \PY{c+c1}{\PYZsh{}plot the scores for the three classifiers}
+        
+        \PY{n}{df} \PY{o}{=} \PY{n}{pd}\PY{o}{.}\PY{n}{DataFrame}\PY{p}{(}\PY{n}{index}\PY{o}{=}\PY{p}{[}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{linear}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,} \PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{poly}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,} \PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{rbf}\PY{l+s+s1}{\PYZsq{}}\PY{p}{]}\PY{p}{)}
+        \PY{n}{df}\PY{p}{[}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{AUC}\PY{l+s+s1}{\PYZsq{}}\PY{p}{]} \PY{o}{=} \PY{n}{auc\PYZus{}scores}\PY{o}{.}\PY{n}{values}\PY{p}{(}\PY{p}{)}
+        \PY{n}{df}\PY{p}{[}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{Support vectors}\PY{l+s+s1}{\PYZsq{}}\PY{p}{]} \PY{o}{=} \PY{n}{n\PYZus{}vectors}\PY{o}{.}\PY{n}{values}\PY{p}{(}\PY{p}{)}
+        
+        \PY{n}{fig} \PY{o}{=} \PY{n}{plt}\PY{o}{.}\PY{n}{figure}\PY{p}{(}\PY{n}{figsize}\PY{o}{=}\PY{p}{(}\PY{l+m+mi}{12}\PY{p}{,}\PY{l+m+mi}{4}\PY{p}{)}\PY{p}{)}
+        
+        \PY{n}{ax}\PY{o}{=}\PY{n}{fig}\PY{o}{.}\PY{n}{add\PYZus{}subplot}\PY{p}{(}\PY{l+m+mi}{121}\PY{p}{)}
+        \PY{n}{df}\PY{p}{[}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{AUC}\PY{l+s+s1}{\PYZsq{}}\PY{p}{]}\PY{o}{.}\PY{n}{plot}\PY{p}{(}\PY{n}{kind}\PY{o}{=}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{bar}\PY{l+s+s1}{\PYZsq{}}\PY{p}{)}
+        \PY{n}{plt}\PY{o}{.}\PY{n}{title}\PY{p}{(}\PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{AUC score}\PY{l+s+s2}{\PYZdq{}}\PY{p}{)}
+        \PY{n}{plt}\PY{o}{.}\PY{n}{xticks}\PY{p}{(}\PY{n}{rotation}\PY{o}{=}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{horizontal}\PY{l+s+s1}{\PYZsq{}}\PY{p}{)}
+        
+        \PY{n}{ax}\PY{o}{=}\PY{n}{fig}\PY{o}{.}\PY{n}{add\PYZus{}subplot}\PY{p}{(}\PY{l+m+mi}{122}\PY{p}{)}
+        \PY{n}{df}\PY{p}{[}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{Support vectors}\PY{l+s+s1}{\PYZsq{}}\PY{p}{]}\PY{o}{.}\PY{n}{plot}\PY{p}{(}\PY{n}{kind}\PY{o}{=}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{bar}\PY{l+s+s1}{\PYZsq{}}\PY{p}{)}
+        \PY{n}{plt}\PY{o}{.}\PY{n}{title}\PY{p}{(}\PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{Number of support vectors}\PY{l+s+s2}{\PYZdq{}}\PY{p}{)}
+        \PY{n}{plt}\PY{o}{.}\PY{n}{xticks}\PY{p}{(}\PY{n}{rotation}\PY{o}{=}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{horizontal}\PY{l+s+s1}{\PYZsq{}}\PY{p}{)}
+        
+        \PY{n}{plt}\PY{o}{.}\PY{n}{show}\PY{p}{(}\PY{p}{)}
+\end{Verbatim}
+
+
+    \begin{center}
+    \adjustimage{max size={0.9\linewidth}{0.9\paperheight}}{output_9_0.pdf}
+    \end{center}
+    { \hspace*{\fill} \\}
+    
+    Out of the three classifiers, the gaussian kernel (rbf) is the one that
+best fits the data. As we can see from the plots above, the linear
+kernel has no way to divide the data, since the elements of the two
+classes cannot be saparated by a straight line. The polynomial kernel
+performs a bit better: as we can see from the plot the curves can
+capture correctly some areas of the graph, but it is still far from
+optimal. The gaussian kernel has a much better perfomance, as it can
+capture the different zones of the data with greater precision.
+
+We can conclude that the first two models are not fit to be used on this
+particular dataset, as for the nature of their kernels they underfit the
+data, while the gaussian classifier results in better precision. This
+can also be noted by observing the number of support vectors: the rbf
+kernel achieves a more defined separation of the two classes, resulting
+in a lower number of support vectors.
+
+    2 . Pick the RBF kernel and optimize the two most important
+hyperparameters (the \(C\) parameter and the kernel width \(\gamma\)).
+
+\begin{itemize}
+\tightlist
+\item
+  First, optimize manually using 3 values for each (a very small,
+  default, and very large value). For each of the 9 combinations, create
+  the same RBF plot as before, report the number of support vectors, and
+  the AUC performance. Explain the performance results. When are you
+  over/underfitting?
+\item
+  Next, optimize the hyperparameters using a grid search and 10-fold
+  cross validation. Show a heatmap of the results snd report the optimal
+  hyperparameter values.
+
+  \begin{itemize}
+  \tightlist
+  \item
+    Hint: values for C and \(\gamma\) are typically in
+    {[}\(2^{-15}..2^{15}\){]} on a log scale. Use at least 10 values for
+    each.
+  \end{itemize}
+\end{itemize}
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}10}]:} \PY{c+c1}{\PYZsh{}optimize c and gamma manually}
+         \PY{n}{best\PYZus{}score} \PY{o}{=} \PY{l+m+mi}{0}
+         \PY{n}{plot\PYZus{}index}\PY{o}{=}\PY{l+m+mi}{1}
+         \PY{n}{c\PYZus{}range} \PY{o}{=} \PY{p}{[}\PY{l+m+mf}{0.1}\PY{p}{,} \PY{l+m+mi}{1}\PY{p}{,} \PY{l+m+mi}{1000}\PY{p}{]}
+         \PY{n}{gamma\PYZus{}range} \PY{o}{=} \PY{p}{[}\PY{l+m+mf}{0.01}\PY{p}{,} \PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{auto}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,} \PY{l+m+mi}{100}\PY{p}{]}
+         \PY{n}{scores} \PY{o}{=} \PY{p}{[}\PY{p}{]}
+         \PY{n}{vectors} \PY{o}{=} \PY{p}{[}\PY{p}{]}
+         \PY{n}{fig} \PY{o}{=} \PY{n}{plt}\PY{o}{.}\PY{n}{figure}\PY{p}{(}\PY{n}{figsize}\PY{o}{=}\PY{p}{(}\PY{l+m+mi}{14}\PY{p}{,} \PY{l+m+mi}{14}\PY{p}{)}\PY{p}{)}
+         
+         
+         \PY{k}{for} \PY{n}{C} \PY{o+ow}{in} \PY{n}{c\PYZus{}range}\PY{p}{:}
+             
+             \PY{n}{score\PYZus{}row} \PY{o}{=} \PY{p}{[}\PY{p}{]}
+             \PY{n}{vector\PYZus{}row} \PY{o}{=} \PY{p}{[}\PY{p}{]}
+             \PY{k}{for} \PY{n}{gamma} \PY{o+ow}{in} \PY{n}{gamma\PYZus{}range}\PY{p}{:}
+                 
+                 \PY{c+c1}{\PYZsh{}fit model}
+                 \PY{n}{clf} \PY{o}{=} \PY{n}{svm}\PY{o}{.}\PY{n}{SVC}\PY{p}{(}\PY{n}{kernel}\PY{o}{=}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{rbf}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,} \PY{n}{C}\PY{o}{=}\PY{n}{C}\PY{p}{,} \PY{n}{gamma}\PY{o}{=}\PY{n}{gamma}\PY{p}{)}
+                 \PY{n}{clf}\PY{o}{.}\PY{n}{fit}\PY{p}{(}\PY{n}{X\PYZus{}train}\PY{p}{,} \PY{n}{y\PYZus{}train}\PY{p}{)}
+                 
+                 \PY{c+c1}{\PYZsh{}plot}
+                 \PY{n}{plot\PYZus{}svm\PYZus{}kernel}\PY{p}{(}\PY{n}{clf}\PY{p}{,} \PY{n}{plot\PYZus{}index}\PY{p}{,} \PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{C = }\PY{l+s+si}{\PYZob{}\PYZcb{}}\PY{l+s+s1}{   Gamma = }\PY{l+s+si}{\PYZob{}\PYZcb{}}\PY{l+s+s1}{\PYZsq{}}\PY{o}{.}\PY{n}{format}\PY{p}{(}\PY{n}{C}\PY{p}{,} \PY{n}{gamma}\PY{p}{)}\PY{p}{,} \PY{n}{fig}\PY{p}{)}
+                 \PY{n}{plot\PYZus{}index} \PY{o}{+}\PY{o}{=} \PY{l+m+mi}{1}
+                 
+                 \PY{c+c1}{\PYZsh{}save all scores and best score}
+                 \PY{n}{score} \PY{o}{=} \PY{n}{roc\PYZus{}auc\PYZus{}score}\PY{p}{(}\PY{n}{y\PYZus{}test}\PY{p}{,} \PY{n}{clf}\PY{o}{.}\PY{n}{decision\PYZus{}function}\PY{p}{(}\PY{n}{X\PYZus{}test}\PY{p}{)}\PY{p}{)}
+                 \PY{n}{score\PYZus{}row}\PY{o}{.}\PY{n}{append}\PY{p}{(}\PY{n}{score}\PY{p}{)}
+                 \PY{n}{vector\PYZus{}row}\PY{o}{.}\PY{n}{append}\PY{p}{(}\PY{n+nb}{len}\PY{p}{(}\PY{n}{clf}\PY{o}{.}\PY{n}{support\PYZus{}vectors\PYZus{}}\PY{p}{[}\PY{p}{:}\PY{p}{]}\PY{p}{)}\PY{p}{)}
+                 \PY{k}{if} \PY{n}{score} \PY{o}{\PYZgt{}} \PY{n}{best\PYZus{}score}\PY{p}{:}
+                     \PY{n}{best\PYZus{}score} \PY{o}{=} \PY{n}{score}
+                     \PY{n}{best\PYZus{}parameters} \PY{o}{=} \PY{p}{\PYZob{}}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{C}\PY{l+s+s1}{\PYZsq{}}\PY{p}{:} \PY{n}{C}\PY{p}{,} \PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{gamma}\PY{l+s+s1}{\PYZsq{}}\PY{p}{:} \PY{n}{gamma}\PY{p}{\PYZcb{}}
+                     
+             \PY{n}{scores}\PY{o}{.}\PY{n}{append}\PY{p}{(}\PY{n}{score\PYZus{}row}\PY{p}{)}
+             \PY{n}{vectors}\PY{o}{.}\PY{n}{append}\PY{p}{(}\PY{n}{vector\PYZus{}row}\PY{p}{)}
+         
+         \PY{n+nb}{print}\PY{p}{(}\PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{Best score: }\PY{l+s+si}{\PYZob{}:.6f\PYZcb{}}\PY{l+s+s2}{\PYZdq{}}\PY{o}{.}\PY{n}{format}\PY{p}{(}\PY{n}{best\PYZus{}score}\PY{p}{)}\PY{p}{)}
+         \PY{n+nb}{print}\PY{p}{(}\PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{Best parameters: }\PY{l+s+si}{\PYZob{}\PYZcb{}}\PY{l+s+s2}{\PYZdq{}}\PY{o}{.}\PY{n}{format}\PY{p}{(}\PY{n}{best\PYZus{}parameters}\PY{p}{)}\PY{p}{)}
+         \PY{n}{plt}\PY{o}{.}\PY{n}{show}\PY{p}{(}\PY{p}{)}
+\end{Verbatim}
+
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+Best score: 0.973025
+Best parameters: \{'C': 1000, 'gamma': 'auto'\}
+
+    \end{Verbatim}
+
+    \begin{center}
+    \adjustimage{max size={0.9\linewidth}{0.9\paperheight}}{output_12_1.pdf}
+    \end{center}
+    { \hspace*{\fill} \\}
+    
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}11}]:} \PY{c+c1}{\PYZsh{}plot heatmaps}
+         \PY{n}{fig}\PY{o}{=}\PY{n}{plt}\PY{o}{.}\PY{n}{figure}\PY{p}{(}\PY{n}{figsize}\PY{o}{=}\PY{p}{(}\PY{l+m+mi}{12}\PY{p}{,}\PY{l+m+mi}{4}\PY{p}{)}\PY{p}{)}
+         
+         \PY{n}{fig}\PY{o}{.}\PY{n}{add\PYZus{}subplot}\PY{p}{(}\PY{l+m+mi}{121}\PY{p}{)}
+         \PY{n}{mglearn}\PY{o}{.}\PY{n}{tools}\PY{o}{.}\PY{n}{heatmap}\PY{p}{(}\PY{n}{scores}\PY{p}{,} \PY{n}{xlabel}\PY{o}{=}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{Gamma}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,} \PY{n}{xticklabels}\PY{o}{=}\PY{n}{gamma\PYZus{}range}\PY{p}{,} \PY{n}{ylabel}\PY{o}{=}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{C}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,} \PY{n}{yticklabels}\PY{o}{=}\PY{n}{c\PYZus{}range}\PY{p}{,} \PY{n}{cmap}\PY{o}{=}\PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{viridis}\PY{l+s+s2}{\PYZdq{}}\PY{p}{)}
+         \PY{n}{plt}\PY{o}{.}\PY{n}{title}\PY{p}{(}\PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{AUC score}\PY{l+s+s2}{\PYZdq{}}\PY{p}{)}
+         \PY{n}{plt}\PY{o}{.}\PY{n}{draw}\PY{p}{(}\PY{p}{)}
+         
+         \PY{n}{fig}\PY{o}{.}\PY{n}{add\PYZus{}subplot}\PY{p}{(}\PY{l+m+mi}{122}\PY{p}{)}
+         \PY{n}{mglearn}\PY{o}{.}\PY{n}{tools}\PY{o}{.}\PY{n}{heatmap}\PY{p}{(}\PY{n}{vectors}\PY{p}{,} \PY{n}{xlabel}\PY{o}{=}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{Gamma}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,} \PY{n}{xticklabels}\PY{o}{=}\PY{n}{gamma\PYZus{}range}\PY{p}{,} \PY{n}{ylabel}\PY{o}{=}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{C}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,} \PY{n}{yticklabels}\PY{o}{=}\PY{n}{c\PYZus{}range}\PY{p}{,} \PY{n}{cmap}\PY{o}{=}\PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{viridis}\PY{l+s+s2}{\PYZdq{}}\PY{p}{)}
+         \PY{n}{plt}\PY{o}{.}\PY{n}{title}\PY{p}{(}\PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{Number of support vectors}\PY{l+s+s2}{\PYZdq{}}\PY{p}{)}
+         \PY{n}{plt}\PY{o}{.}\PY{n}{draw}\PY{p}{(}\PY{p}{)}
+\end{Verbatim}
+
+
+    \begin{center}
+    \adjustimage{max size={0.9\linewidth}{0.9\paperheight}}{output_13_0.pdf}
+    \end{center}
+    { \hspace*{\fill} \\}
+    
+    The best perfomance overall is obtained for the default value of gamma
+(which is evaluated as 1/n\_features) and a large value of C. We
+observed that in some of the plots the lines of the decision boundaries
+are not visible, probably due to eccessively broad or narrow Gaussians.
+From the middle column, we can see how higher values of the C penalty
+make the decision boundaries margins smaller. Decisevely high values of
+C can generally cause overfitting, but in this case even for C=1000 we
+still have a good performance. Nevertheless, we can see from both the
+plot and the heatmap that for a value of C=1 we already obtain an
+acceptable perfomance: the optimal value will probably we somewhere in
+between, as we will see in the next section.
+
+As for the gamma parameter, we can see by confronting the three columns
+that in the first the value of gamma is too low and the data is
+underfitted: the zones are too broad to classify the data. On the other
+hand, in the third one gamma is eccessively high and it causes
+overfitting, as we can see from the curves that isolate the single data
+points. The default setting gives a better result, as the width of the
+Gaussian curves is fit to delimit the different zones in the data.
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}32}]:} \PY{c+c1}{\PYZsh{}optimize parameters with GridSearch}
+         \PY{n}{param\PYZus{}grid} \PY{o}{=} \PY{p}{\PYZob{}}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{C}\PY{l+s+s1}{\PYZsq{}}\PY{p}{:} \PY{n}{np}\PY{o}{.}\PY{n}{logspace}\PY{p}{(}\PY{o}{\PYZhy{}}\PY{l+m+mi}{15}\PY{p}{,} \PY{l+m+mi}{15}\PY{p}{,} \PY{l+m+mi}{10}\PY{p}{,} \PY{n}{base}\PY{o}{=}\PY{l+m+mi}{2}\PY{p}{)}\PY{p}{,}
+                        \PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{gamma}\PY{l+s+s1}{\PYZsq{}}\PY{p}{:} \PY{n}{np}\PY{o}{.}\PY{n}{logspace}\PY{p}{(}\PY{o}{\PYZhy{}}\PY{l+m+mi}{15}\PY{p}{,} \PY{l+m+mi}{15}\PY{p}{,} \PY{l+m+mi}{10}\PY{p}{,} \PY{n}{base}\PY{o}{=}\PY{l+m+mi}{2}\PY{p}{)}\PY{p}{\PYZcb{}}
+         
+         \PY{n}{grid\PYZus{}search} \PY{o}{=} \PY{n}{GridSearchCV}\PY{p}{(}\PY{n}{svm}\PY{o}{.}\PY{n}{SVC}\PY{p}{(}\PY{n}{kernel}\PY{o}{=}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{rbf}\PY{l+s+s1}{\PYZsq{}}\PY{p}{)}\PY{p}{,} \PY{n}{param\PYZus{}grid}\PY{p}{,} \PY{n}{cv}\PY{o}{=}\PY{l+m+mi}{10}\PY{p}{)}
+         \PY{n}{grid\PYZus{}search}\PY{o}{.}\PY{n}{fit}\PY{p}{(}\PY{n}{X\PYZus{}train}\PY{p}{,} \PY{n}{y\PYZus{}train}\PY{p}{)}
+         
+         \PY{n+nb}{print}\PY{p}{(}\PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{Best parameters: }\PY{l+s+si}{\PYZob{}\PYZcb{}}\PY{l+s+s2}{\PYZdq{}}\PY{o}{.}\PY{n}{format}\PY{p}{(}\PY{n}{grid\PYZus{}search}\PY{o}{.}\PY{n}{best\PYZus{}params\PYZus{}}\PY{p}{)}\PY{p}{)}
+         \PY{n+nb}{print}\PY{p}{(}\PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{Best cross\PYZhy{}validation score: }\PY{l+s+si}{\PYZob{}:.2f\PYZcb{}}\PY{l+s+s2}{\PYZdq{}}\PY{o}{.}\PY{n}{format}\PY{p}{(}\PY{n}{grid\PYZus{}search}\PY{o}{.}\PY{n}{best\PYZus{}score\PYZus{}}\PY{p}{)}\PY{p}{)}
+\end{Verbatim}
+
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+Best parameters: \{'C': 3250.997354430875, 'gamma': 0.31498026247371841\}
+Best cross-validation score: 0.90
+
+    \end{Verbatim}
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}46}]:} \PY{c+c1}{\PYZsh{}plot heatmap}
+         \PY{n}{fig}\PY{o}{=}\PY{n}{plt}\PY{o}{.}\PY{n}{figure}\PY{p}{(}\PY{n}{figsize}\PY{o}{=}\PY{p}{(}\PY{l+m+mi}{6}\PY{p}{,}\PY{l+m+mi}{6}\PY{p}{)}\PY{p}{)}
+         \PY{n}{labels} \PY{o}{=} \PY{n}{np}\PY{o}{.}\PY{n}{round}\PY{p}{(}\PY{n}{np}\PY{o}{.}\PY{n}{logspace}\PY{p}{(}\PY{o}{\PYZhy{}}\PY{l+m+mi}{15}\PY{p}{,} \PY{l+m+mi}{15}\PY{p}{,} \PY{l+m+mi}{10}\PY{p}{,} \PY{n}{base}\PY{o}{=}\PY{l+m+mi}{2}\PY{p}{)}\PY{p}{,}\PY{l+m+mi}{2}\PY{p}{)}
+         \PY{n}{grid\PYZus{}scores} \PY{o}{=} \PY{n}{np}\PY{o}{.}\PY{n}{array}\PY{p}{(}\PY{n}{grid\PYZus{}search}\PY{o}{.}\PY{n}{cv\PYZus{}results\PYZus{}}\PY{p}{[}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{mean\PYZus{}test\PYZus{}score}\PY{l+s+s1}{\PYZsq{}}\PY{p}{]}\PY{p}{)}\PY{o}{.}\PY{n}{reshape}\PY{p}{(}\PY{l+m+mi}{10}\PY{p}{,} \PY{l+m+mi}{10}\PY{p}{)}
+         \PY{n}{mglearn}\PY{o}{.}\PY{n}{tools}\PY{o}{.}\PY{n}{heatmap}\PY{p}{(}\PY{n}{grid\PYZus{}scores}\PY{p}{,} \PY{n}{xlabel}\PY{o}{=}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{Gamma}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,} \PY{n}{xticklabels}\PY{o}{=}\PY{n}{labels}\PY{p}{,}
+                               \PY{n}{ylabel}\PY{o}{=}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{C}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,} \PY{n}{yticklabels}\PY{o}{=}\PY{n}{labels}\PY{p}{,} \PY{n}{cmap}\PY{o}{=}\PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{viridis}\PY{l+s+s2}{\PYZdq{}}\PY{p}{)}
+         \PY{n}{plt}\PY{o}{.}\PY{n}{title}\PY{p}{(}\PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{Cross\PYZhy{}validation score}\PY{l+s+s2}{\PYZdq{}}\PY{p}{)}
+         \PY{n}{plt}\PY{o}{.}\PY{n}{draw}\PY{p}{(}\PY{p}{)}
+\end{Verbatim}
+
+
+    \begin{center}
+    \adjustimage{max size={0.9\linewidth}{0.9\paperheight}}{output_16_0.pdf}
+    \end{center}
+    { \hspace*{\fill} \\}
+    
+    The optimal parameters found using GridSearch are:
+
+\begin{verbatim}
+C ≃ 3250.99
+gamma ≃ 0.315
+\end{verbatim}
+
+But it is clearly visible from the heatmap that for the same value of
+gamma, the classifier returns equally good performances even when using
+a much lower C, starting from a value of 0.03.
+
+    \subsection{Building Kernels (4 points
+(0.5+0.5+1+2))}\label{building-kernels-4-points-0.50.512}
+
+Consider the artificial dataset given below. It represents a sine wave
+with added noise.
+
+    \begin{enumerate}
+\def\labelenumi{\arabic{enumi}.}
+\item
+  Fit an SVM Regressor with the default RBF kernel, and plot the
+  predictions on all data points in {[}0, 40{]}.
+
+  \begin{itemize}
+  \tightlist
+  \item
+    Does it fit the data well? Does it extrapolate well (in the range
+    {[}30,40{]})? Explain your findings.
+  \item
+    Can you get better results by tweaking the kernel or the other SVM
+    parameters?
+  \end{itemize}
+\item
+  Implement your own linear kernel. This is a function that takes 2
+  vectors (arrays) and returns the dot product:
+
+  \[k(\mathbf{x}_i,\,\mathbf{x}_j) = \mathbf{x}_i \cdot \mathbf{x}_j\]
+
+  \begin{itemize}
+  \tightlist
+  \item
+    Build an SVM regressor using that kernel by passing your kernel
+    function as the \texttt{kernel} hyperparameter.
+  \item
+    Fit it on the sine data and plot the predictions on all data points.
+    Interpret the results.
+  \end{itemize}
+\item
+  Since this data is periodic, it makes sense to implement a periodic
+  kernel instead.
+
+  \begin{itemize}
+  \tightlist
+  \item
+    This is the Exponential Sine Squared kernel, with length scale
+    \(\Gamma\) and periodicity \(P\):
+    \[k(\mathbf{x}_i,\,\mathbf{x}_j) = \exp \left( -\Gamma\,\sin^2\left[\frac{\pi}{P}\,\left|\left|x_i-x_j\right|\right|\right]\right)\]
+  \item
+    Implement it, using the defaults \(\Gamma=1\), periodicity \(P=1\),
+    and Euclidean distance.
+  \item
+    Train an SVM regressor with it, fit in on the same data and plot the
+    result. Interpret the outcome.
+  \item
+    Think about what \(\Gamma\) and \(P\) represent. Can you improve the
+    fit by manually adjusting them? Explain your findings.
+  \item
+    Optimize \(\Gamma\) and periodicity \(P\) (using \texttt{true\_y} as
+    the ground truth). Use a grid search or random search,
+    \(\Gamma \in [0,1]\), \(P \in [1,100]\), try at least 5 values for
+    each.
+  \end{itemize}
+\end{enumerate}
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}3}]:} \PY{c+c1}{\PYZsh{} Generate sample data}
+        \PY{n}{rng} \PY{o}{=} \PY{n}{np}\PY{o}{.}\PY{n}{random}\PY{o}{.}\PY{n}{RandomState}\PY{p}{(}\PY{l+m+mi}{0}\PY{p}{)} \PY{c+c1}{\PYZsh{} Random seed, for reproducibility }
+        \PY{n}{X} \PY{o}{=} \PY{l+m+mi}{30} \PY{o}{*} \PY{n}{rng}\PY{o}{.}\PY{n}{rand}\PY{p}{(}\PY{l+m+mi}{200}\PY{p}{,} \PY{l+m+mi}{1}\PY{p}{)}
+        \PY{n}{y} \PY{o}{=} \PY{n}{np}\PY{o}{.}\PY{n}{sin}\PY{p}{(}\PY{n}{X}\PY{p}{)}\PY{o}{.}\PY{n}{ravel}\PY{p}{(}\PY{p}{)} 
+        \PY{n}{y}\PY{p}{[}\PY{p}{:}\PY{p}{:}\PY{l+m+mi}{2}\PY{p}{]} \PY{o}{+}\PY{o}{=} \PY{n}{rng}\PY{o}{.}\PY{n}{normal}\PY{p}{(}\PY{n}{scale} \PY{o}{=} \PY{l+m+mf}{1.0}\PY{p}{,} \PY{n}{size} \PY{o}{=} \PY{n}{X}\PY{o}{.}\PY{n}{shape}\PY{p}{[}\PY{l+m+mi}{0}\PY{p}{]} \PY{o}{/}\PY{o}{/} \PY{l+m+mi}{2}\PY{p}{)} \PY{c+c1}{\PYZsh{} adds noise}
+        
+        \PY{n}{X\PYZus{}plot} \PY{o}{=} \PY{n}{np}\PY{o}{.}\PY{n}{linspace}\PY{p}{(}\PY{l+m+mi}{0}\PY{p}{,} \PY{l+m+mi}{40}\PY{p}{,} \PY{l+m+mi}{10000}\PY{p}{)}\PY{p}{[}\PY{p}{:}\PY{p}{,} \PY{k+kc}{None}\PY{p}{]} \PY{c+c1}{\PYZsh{} A larger range to evaluate on}
+        \PY{n}{true\PYZus{}y} \PY{o}{=} \PY{n}{np}\PY{o}{.}\PY{n}{sin}\PY{p}{(}\PY{n}{X\PYZus{}plot}\PY{p}{)} \PY{c+c1}{\PYZsh{} and the \PYZsq{}true\PYZsq{} target function}
+        
+        \PY{n}{plt}\PY{o}{.}\PY{n}{figure}\PY{p}{(}\PY{n}{figsize}\PY{o}{=}\PY{p}{(}\PY{l+m+mi}{10}\PY{p}{,} \PY{l+m+mi}{5}\PY{p}{)}\PY{p}{)}
+        \PY{n}{plt}\PY{o}{.}\PY{n}{scatter}\PY{p}{(}\PY{n}{X}\PY{p}{,} \PY{n}{y}\PY{p}{,} \PY{n}{c}\PY{o}{=}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{k}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,} \PY{n}{label}\PY{o}{=}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{Data}\PY{l+s+s1}{\PYZsq{}}\PY{p}{)}
+        \PY{n}{plt}\PY{o}{.}\PY{n}{plot}\PY{p}{(}\PY{n}{X\PYZus{}plot}\PY{p}{,} \PY{n}{true\PYZus{}y}\PY{p}{)}\PY{p}{;}
+\end{Verbatim}
+
+
+    \begin{center}
+    \adjustimage{max size={0.9\linewidth}{0.9\paperheight}}{output_20_0.pdf}
+    \end{center}
+    { \hspace*{\fill} \\}
+    
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}4}]:} \PY{k+kn}{from} \PY{n+nn}{sklearn}\PY{n+nn}{.}\PY{n+nn}{svm} \PY{k}{import} \PY{n}{SVR}
+        \PY{k+kn}{from} \PY{n+nn}{sklearn}\PY{n+nn}{.}\PY{n+nn}{model\PYZus{}selection} \PY{k}{import} \PY{n}{GridSearchCV}
+        \PY{k+kn}{import} \PY{n+nn}{numpy} \PY{k}{as} \PY{n+nn}{np}
+        \PY{k+kn}{from} \PY{n+nn}{sklearn}\PY{n+nn}{.}\PY{n+nn}{metrics}\PY{n+nn}{.}\PY{n+nn}{pairwise} \PY{k}{import} \PY{n}{euclidean\PYZus{}distances}
+        
+        \PY{n}{indices\PYZus{}X\PYZus{}test} \PY{o}{=} \PY{n}{np}\PY{o}{.}\PY{n}{where}\PY{p}{(}\PY{n}{X\PYZus{}plot}\PY{o}{\PYZlt{}}\PY{o}{=}\PY{l+m+mi}{30}\PY{p}{)}\PY{p}{[}\PY{l+m+mi}{0}\PY{p}{]}
+        \PY{n}{indices\PYZus{}X\PYZus{}extr} \PY{o}{=} \PY{n}{np}\PY{o}{.}\PY{n}{where}\PY{p}{(}\PY{n}{X\PYZus{}plot}\PY{o}{\PYZgt{}}\PY{l+m+mi}{30}\PY{p}{)}\PY{p}{[}\PY{l+m+mi}{0}\PY{p}{]}
+        
+        \PY{n}{X\PYZus{}test} \PY{o}{=} \PY{n}{X\PYZus{}plot}\PY{p}{[}\PY{n}{indices\PYZus{}X\PYZus{}test}\PY{p}{]}
+        \PY{n}{y\PYZus{}test} \PY{o}{=} \PY{n}{true\PYZus{}y}\PY{p}{[}\PY{n}{indices\PYZus{}X\PYZus{}test}\PY{p}{]}
+        \PY{n}{X\PYZus{}extr} \PY{o}{=} \PY{n}{X\PYZus{}plot}\PY{p}{[}\PY{n}{indices\PYZus{}X\PYZus{}extr}\PY{p}{]}
+        \PY{n}{y\PYZus{}extr} \PY{o}{=} \PY{n}{true\PYZus{}y}\PY{p}{[}\PY{n}{indices\PYZus{}X\PYZus{}extr}\PY{p}{]}
+        
+        \PY{n}{param\PYZus{}grid} \PY{o}{=} \PY{p}{\PYZob{}}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{C}\PY{l+s+s1}{\PYZsq{}}\PY{p}{:} \PY{n}{np}\PY{o}{.}\PY{n}{arange}\PY{p}{(}\PY{l+m+mf}{0.1}\PY{p}{,} \PY{l+m+mi}{100}\PY{p}{,} \PY{l+m+mf}{0.5}\PY{p}{)}\PY{p}{,}
+                       \PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{gamma}\PY{l+s+s1}{\PYZsq{}}\PY{p}{:} \PY{n}{np}\PY{o}{.}\PY{n}{arange}\PY{p}{(}\PY{l+m+mf}{0.1}\PY{p}{,} \PY{l+m+mf}{1.1}\PY{p}{,} \PY{l+m+mf}{0.1}\PY{p}{)}\PY{p}{\PYZcb{}}
+        
+        \PY{k}{def} \PY{n+nf}{svr\PYZus{}function}\PY{p}{(}\PY{n}{kernel}\PY{p}{)}\PY{p}{:}
+            \PY{n}{grid\PYZus{}search} \PY{o}{=} \PY{n}{GridSearchCV}\PY{p}{(}\PY{n}{SVR}\PY{p}{(}\PY{n}{kernel}\PY{o}{=}\PY{n}{kernel}\PY{p}{)}\PY{p}{,} \PY{n}{param\PYZus{}grid}\PY{p}{,} \PY{n}{cv}\PY{o}{=}\PY{l+m+mi}{10}\PY{p}{,} \PY{n}{n\PYZus{}jobs} \PY{o}{=} \PY{o}{\PYZhy{}}\PY{l+m+mi}{1}\PY{p}{)}
+            \PY{n}{grid\PYZus{}search}\PY{o}{.}\PY{n}{fit}\PY{p}{(}\PY{n}{X}\PY{p}{,} \PY{n}{y}\PY{p}{)}
+        
+            \PY{n}{interval1} \PY{o}{=} \PY{n}{grid\PYZus{}search}\PY{o}{.}\PY{n}{score}\PY{p}{(}\PY{n}{X\PYZus{}test}\PY{p}{,} \PY{n}{y\PYZus{}test}\PY{p}{)}
+            \PY{n+nb}{print}\PY{p}{(}\PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{Score in range [0,30]: }\PY{l+s+si}{\PYZob{}:.2f\PYZcb{}}\PY{l+s+s2}{\PYZdq{}}\PY{o}{.}\PY{n}{format}\PY{p}{(}\PY{n}{interval1}\PY{p}{)}\PY{p}{)}
+        
+            \PY{n}{interval2} \PY{o}{=} \PY{n}{grid\PYZus{}search}\PY{o}{.}\PY{n}{score}\PY{p}{(}\PY{n}{X\PYZus{}extr}\PY{p}{,} \PY{n}{y\PYZus{}extr}\PY{p}{)}
+            \PY{n+nb}{print}\PY{p}{(}\PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{Score in range (30,40]: }\PY{l+s+si}{\PYZob{}:.2f\PYZcb{}}\PY{l+s+s2}{\PYZdq{}}\PY{o}{.}\PY{n}{format}\PY{p}{(}\PY{n}{interval2}\PY{p}{)}\PY{p}{)}
+        
+            \PY{n}{pred} \PY{o}{=} \PY{n}{grid\PYZus{}search}\PY{o}{.}\PY{n}{predict}\PY{p}{(}\PY{n}{X\PYZus{}plot}\PY{p}{)}
+        
+            \PY{n+nb}{print}\PY{p}{(}\PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{Best parameters: }\PY{l+s+si}{\PYZob{}\PYZcb{}}\PY{l+s+s2}{\PYZdq{}}\PY{o}{.}\PY{n}{format}\PY{p}{(}\PY{n}{grid\PYZus{}search}\PY{o}{.}\PY{n}{best\PYZus{}params\PYZus{}}\PY{p}{)}\PY{p}{)}
+            \PY{n+nb}{print}\PY{p}{(}\PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{Best score: }\PY{l+s+si}{\PYZob{}:.2f\PYZcb{}}\PY{l+s+s2}{\PYZdq{}}\PY{o}{.}\PY{n}{format}\PY{p}{(}\PY{n}{grid\PYZus{}search}\PY{o}{.}\PY{n}{best\PYZus{}score\PYZus{}}\PY{p}{)}\PY{p}{)}
+        
+            \PY{n}{plt}\PY{o}{.}\PY{n}{figure}\PY{p}{(}\PY{n}{figsize}\PY{o}{=}\PY{p}{(}\PY{l+m+mi}{10}\PY{p}{,} \PY{l+m+mi}{5}\PY{p}{)}\PY{p}{)}
+            \PY{n}{plt}\PY{o}{.}\PY{n}{plot}\PY{p}{(}\PY{n}{X\PYZus{}plot}\PY{p}{,} \PY{n}{pred}\PY{p}{,} \PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{r\PYZhy{}}\PY{l+s+s1}{\PYZsq{}}\PY{p}{)}
+            \PY{n}{plt}\PY{o}{.}\PY{n}{scatter}\PY{p}{(}\PY{n}{X}\PY{p}{,} \PY{n}{y}\PY{p}{,} \PY{n}{c}\PY{o}{=}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{k}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,} \PY{n}{label}\PY{o}{=}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{Data}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,} \PY{n}{alpha}\PY{o}{=}\PY{l+m+mf}{0.08}\PY{p}{)}
+            \PY{n}{plt}\PY{o}{.}\PY{n}{plot}\PY{p}{(}\PY{n}{X\PYZus{}plot}\PY{p}{,} \PY{n}{true\PYZus{}y}\PY{p}{,} \PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{b\PYZhy{}}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,} \PY{n}{alpha}\PY{o}{=}\PY{l+m+mf}{0.5}\PY{p}{)}
+\end{Verbatim}
+
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}5}]:} \PY{n}{svr\PYZus{}function}\PY{p}{(}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{rbf}\PY{l+s+s1}{\PYZsq{}}\PY{p}{)}
+\end{Verbatim}
+
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+Score on test data in range [0,30]: 0.98
+Score on test data in range (30,40]: -0.18
+Best parameters: \{'gamma': 0.20000000000000001, 'C': 1.1000000000000001\}
+Best score: 0.47
+
+    \end{Verbatim}
+
+    \begin{center}
+    \adjustimage{max size={0.9\linewidth}{0.9\paperheight}}{output_22_1.pdf}
+    \end{center}
+    { \hspace*{\fill} \\}
+    
+    Since SVR model is based on support vectors that are based on data
+points, it predicts 0 for all x-values bigger than 30. The model is
+trained on data points in range, so it will just rely on the closest
+support vectors resulting in a flat line. However, R\^{}2 score in the
+range {[}0,30{]} was high after tweaking C and gamma parameters.
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}8}]:} \PY{k}{def} \PY{n+nf}{dot\PYZus{}product\PYZus{}kernel}\PY{p}{(}\PY{n}{X}\PY{p}{,} \PY{n}{y}\PY{p}{)}\PY{p}{:}
+            \PY{k}{return} \PY{n}{np}\PY{o}{.}\PY{n}{dot}\PY{p}{(}\PY{n}{X}\PY{p}{,} \PY{n}{y}\PY{o}{.}\PY{n}{T}\PY{p}{)}
+        
+        \PY{n}{svr} \PY{o}{=} \PY{n}{SVR}\PY{p}{(}\PY{n}{kernel}\PY{o}{=}\PY{n}{dot\PYZus{}product\PYZus{}kernel}\PY{p}{)}
+        \PY{n}{svr}\PY{o}{.}\PY{n}{fit}\PY{p}{(}\PY{n}{X}\PY{p}{,} \PY{n}{y}\PY{p}{)}
+        \PY{n}{pred} \PY{o}{=} \PY{n}{svr}\PY{o}{.}\PY{n}{predict}\PY{p}{(}\PY{n}{X\PYZus{}plot}\PY{p}{)}
+        
+        \PY{n}{interval1} \PY{o}{=} \PY{n}{svr}\PY{o}{.}\PY{n}{score}\PY{p}{(}\PY{n}{X\PYZus{}test}\PY{p}{,} \PY{n}{y\PYZus{}test}\PY{p}{)}
+        \PY{n+nb}{print}\PY{p}{(}\PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{Score in range [0,30]: }\PY{l+s+si}{\PYZob{}:.2f\PYZcb{}}\PY{l+s+s2}{\PYZdq{}}\PY{o}{.}\PY{n}{format}\PY{p}{(}\PY{n}{interval1}\PY{p}{)}\PY{p}{)}
+        
+        \PY{n}{interval2} \PY{o}{=} \PY{n}{svr}\PY{o}{.}\PY{n}{score}\PY{p}{(}\PY{n}{X\PYZus{}extr}\PY{p}{,} \PY{n}{y\PYZus{}extr}\PY{p}{)}
+        \PY{n+nb}{print}\PY{p}{(}\PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{Score in range (30,40]: }\PY{l+s+si}{\PYZob{}:.2f\PYZcb{}}\PY{l+s+s2}{\PYZdq{}}\PY{o}{.}\PY{n}{format}\PY{p}{(}\PY{n}{interval2}\PY{p}{)}\PY{p}{)}
+        
+        \PY{n}{plt}\PY{o}{.}\PY{n}{figure}\PY{p}{(}\PY{n}{figsize}\PY{o}{=}\PY{p}{(}\PY{l+m+mi}{10}\PY{p}{,} \PY{l+m+mi}{5}\PY{p}{)}\PY{p}{)}
+        \PY{n}{plt}\PY{o}{.}\PY{n}{plot}\PY{p}{(}\PY{n}{X\PYZus{}plot}\PY{p}{,} \PY{n}{pred}\PY{p}{,} \PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{r\PYZhy{}}\PY{l+s+s1}{\PYZsq{}}\PY{p}{)}
+        \PY{n}{plt}\PY{o}{.}\PY{n}{scatter}\PY{p}{(}\PY{n}{X}\PY{p}{,} \PY{n}{y}\PY{p}{,} \PY{n}{c}\PY{o}{=}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{k}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,} \PY{n}{label}\PY{o}{=}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{Data}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,} \PY{n}{alpha}\PY{o}{=}\PY{l+m+mf}{0.08}\PY{p}{)}
+        \PY{n}{plt}\PY{o}{.}\PY{n}{plot}\PY{p}{(}\PY{n}{X\PYZus{}plot}\PY{p}{,} \PY{n}{true\PYZus{}y}\PY{p}{,} \PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{b\PYZhy{}}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,} \PY{n}{alpha}\PY{o}{=}\PY{l+m+mf}{0.5}\PY{p}{)}
+\end{Verbatim}
+
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+Score on test data in range [0,30]: -0.01
+Score on test data in range (30,40]: -0.37
+
+    \end{Verbatim}
+
+\begin{Verbatim}[commandchars=\\\{\}]
+{\color{outcolor}Out[{\color{outcolor}8}]:} [<matplotlib.lines.Line2D at 0x14295e4f1d0>]
+\end{Verbatim}
+            
+    \begin{center}
+    \adjustimage{max size={0.9\linewidth}{0.9\paperheight}}{output_24_2.pdf}
+    \end{center}
+    { \hspace*{\fill} \\}
+    
+    In our case the data is not linearly or polynomially separable, so
+changing the kernel function does not improve the extrapolation
+accuracy.
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}14}]:} \PY{k}{def} \PY{n+nf}{build\PYZus{}ess}\PY{p}{(}\PY{n}{gamma}\PY{p}{,} \PY{n}{p}\PY{p}{)}\PY{p}{:}
+             \PY{k}{def} \PY{n+nf}{ess}\PY{p}{(}\PY{n}{a}\PY{p}{,} \PY{n}{b}\PY{p}{)}\PY{p}{:}
+                 \PY{k}{return} \PY{n}{np}\PY{o}{.}\PY{n}{exp}\PY{p}{(}\PY{o}{\PYZhy{}}\PY{n}{gamma} \PY{o}{*} \PY{p}{(}\PY{n}{np}\PY{o}{.}\PY{n}{sin}\PY{p}{(}\PY{n}{np}\PY{o}{.}\PY{n}{pi} \PY{o}{/} \PY{n}{p} \PY{o}{*} \PY{n}{euclidean\PYZus{}distances}\PY{p}{(}\PY{n}{a}\PY{p}{,} \PY{n}{b}\PY{p}{)}\PY{p}{)}\PY{p}{)} \PY{o}{*}\PY{o}{*} \PY{l+m+mi}{2}\PY{p}{)}
+             \PY{k}{return} \PY{n}{ess}
+         
+         \PY{n}{param\PYZus{}grid} \PY{o}{=} \PY{p}{\PYZob{}}\PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{kernel}\PY{l+s+s2}{\PYZdq{}}\PY{p}{:} \PY{p}{[}\PY{n}{build\PYZus{}ess}\PY{p}{(}\PY{n}{gamma}\PY{p}{,} \PY{n}{p}\PY{p}{)}
+                                  \PY{k}{for} \PY{n}{gamma} \PY{o+ow}{in} \PY{n}{np}\PY{o}{.}\PY{n}{arange}\PY{p}{(}\PY{l+m+mf}{0.1}\PY{p}{,} \PY{l+m+mf}{1.1}\PY{p}{,} \PY{l+m+mf}{0.1}\PY{p}{)}
+                                  \PY{k}{for} \PY{n}{p} \PY{o+ow}{in} \PY{n}{np}\PY{o}{.}\PY{n}{arange}\PY{p}{(}\PY{l+m+mi}{1}\PY{p}{,} \PY{l+m+mi}{100}\PY{p}{,} \PY{l+m+mf}{0.5}\PY{p}{)}\PY{p}{]}\PY{p}{\PYZcb{}}
+             
+         \PY{n}{svr} \PY{o}{=} \PY{n}{GridSearchCV}\PY{p}{(}\PY{n}{SVR}\PY{p}{(}\PY{p}{)}\PY{p}{,} \PY{n}{param\PYZus{}grid}\PY{p}{,} \PY{n}{cv}\PY{o}{=}\PY{l+m+mi}{5}\PY{p}{)}
+         \PY{n}{svr}\PY{o}{.}\PY{n}{fit}\PY{p}{(}\PY{n}{X}\PY{p}{,} \PY{n}{y}\PY{p}{)}
+         \PY{n}{pred} \PY{o}{=} \PY{n}{svr}\PY{o}{.}\PY{n}{predict}\PY{p}{(}\PY{n}{X\PYZus{}plot}\PY{p}{)}
+         
+         \PY{n}{plt}\PY{o}{.}\PY{n}{figure}\PY{p}{(}\PY{n}{figsize}\PY{o}{=}\PY{p}{(}\PY{l+m+mi}{10}\PY{p}{,} \PY{l+m+mi}{5}\PY{p}{)}\PY{p}{)}
+         \PY{n}{plt}\PY{o}{.}\PY{n}{plot}\PY{p}{(}\PY{n}{X\PYZus{}plot}\PY{p}{,} \PY{n}{pred}\PY{p}{,} \PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{r\PYZhy{}}\PY{l+s+s1}{\PYZsq{}}\PY{p}{)}
+         \PY{n}{plt}\PY{o}{.}\PY{n}{scatter}\PY{p}{(}\PY{n}{X}\PY{p}{,} \PY{n}{y}\PY{p}{,} \PY{n}{c}\PY{o}{=}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{k}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,} \PY{n}{label}\PY{o}{=}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{Data}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,} \PY{n}{alpha}\PY{o}{=}\PY{l+m+mf}{0.08}\PY{p}{)}
+         \PY{n}{plt}\PY{o}{.}\PY{n}{plot}\PY{p}{(}\PY{n}{X\PYZus{}plot}\PY{p}{,} \PY{n}{true\PYZus{}y}\PY{p}{,} \PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{b\PYZhy{}}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,} \PY{n}{alpha}\PY{o}{=}\PY{l+m+mf}{0.5}\PY{p}{)}
+\end{Verbatim}
+
+
+\begin{Verbatim}[commandchars=\\\{\}]
+{\color{outcolor}Out[{\color{outcolor}14}]:} [<matplotlib.lines.Line2D at 0x142946d0cc0>]
+\end{Verbatim}
+            
+    \begin{center}
+    \adjustimage{max size={0.9\linewidth}{0.9\paperheight}}{output_26_1.pdf}
+    \end{center}
+    { \hspace*{\fill} \\}
+    
+    \emph{P} determines the distance between repetitions of the function and
+\(\gamma\) determines the amplitude of the function. We manually
+adjusted \emph{P} = 6.5 and \(\gamma\) = 0.5 to get better results. We
+also did a grid search over different values of parameters.
+
+    4 . We now make the problem a bit more challenging by adding an upward
+trend:
+
+\begin{itemize}
+\tightlist
+\item
+  Fit the same SVM using the optimal parameters from the previous
+  subtask and plot the results. Do they still work? Explain what you
+  see.
+\item
+  Fit a Gaussian process (GP) using the kernels given below. First use
+  the singular ExpSineSquared kernel (the implementation provided by
+  sklearn this time), then build a new kernel consisting of the 3
+  components given below. Use both to predict all points for the "rising
+  noisy sine" data and plot the results as usual. Interpret the results.
+
+  \begin{itemize}
+  \tightlist
+  \item
+    For the GP, it may help to use \texttt{normalize\_y=True} since the
+    y-values are not around 0. Setting \texttt{alpha=0.1} may help with
+    possible numerical issues, otherwise keep it at 0.
+  \end{itemize}
+\item
+  Also plot the \emph{uncertainty interval} around the predictions. You
+  can ask the GP to return the standard deviation during prediction with
+  the \texttt{return\_std=True} hyperparameter. Plot a band 2 standard
+  deviations above and below the prediction. You can use MatPlotLib's
+  \texttt{fill\_between} as shown in class.
+
+  \begin{itemize}
+  \tightlist
+  \item
+    You can combine the 3 models in one plot for easy comparison.
+  \end{itemize}
+\item
+  We've provided reasonable values for the kernel hyperparameters above.
+  Can you optimize them further to get an even better fit? Think about
+  what the hyperparameters do and optimize the ones you think are most
+  worth tuning.
+\end{itemize}
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}53}]:} \PY{c+c1}{\PYZsh{} Generate sample data with added trend}
+         \PY{n}{rng} \PY{o}{=} \PY{n}{np}\PY{o}{.}\PY{n}{random}\PY{o}{.}\PY{n}{RandomState}\PY{p}{(}\PY{l+m+mi}{0}\PY{p}{)}
+         \PY{n}{X} \PY{o}{=} \PY{l+m+mi}{30} \PY{o}{*} \PY{n}{rng}\PY{o}{.}\PY{n}{rand}\PY{p}{(}\PY{l+m+mi}{200}\PY{p}{,} \PY{l+m+mi}{1}\PY{p}{)}
+         \PY{n}{y} \PY{o}{=} \PY{n}{X}\PY{o}{.}\PY{n}{ravel}\PY{p}{(}\PY{p}{)}\PY{o}{/}\PY{l+m+mi}{2} \PY{o}{+} \PY{n}{np}\PY{o}{.}\PY{n}{sin}\PY{p}{(}\PY{n}{X}\PY{p}{)}\PY{o}{.}\PY{n}{ravel}\PY{p}{(}\PY{p}{)}
+         \PY{n}{y}\PY{p}{[}\PY{p}{:}\PY{p}{:}\PY{l+m+mi}{2}\PY{p}{]} \PY{o}{+}\PY{o}{=} \PY{n}{rng}\PY{o}{.}\PY{n}{normal}\PY{p}{(}\PY{n}{scale} \PY{o}{=} \PY{l+m+mf}{1.0}\PY{p}{,} \PY{n}{size} \PY{o}{=} \PY{n}{X}\PY{o}{.}\PY{n}{shape}\PY{p}{[}\PY{l+m+mi}{0}\PY{p}{]} \PY{o}{/}\PY{o}{/} \PY{l+m+mi}{2}\PY{p}{)}  \PY{c+c1}{\PYZsh{} add noise}
+         
+         \PY{n}{X\PYZus{}plot} \PY{o}{=} \PY{n}{np}\PY{o}{.}\PY{n}{linspace}\PY{p}{(}\PY{l+m+mi}{0}\PY{p}{,} \PY{l+m+mi}{40}\PY{p}{,} \PY{l+m+mi}{10000}\PY{p}{)}\PY{p}{[}\PY{p}{:}\PY{p}{,} \PY{k+kc}{None}\PY{p}{]}
+         \PY{n}{true\PYZus{}y} \PY{o}{=} \PY{n}{X\PYZus{}plot}\PY{o}{/}\PY{l+m+mi}{2} \PY{o}{+} \PY{n}{np}\PY{o}{.}\PY{n}{sin}\PY{p}{(}\PY{n}{X\PYZus{}plot}\PY{p}{)}
+         
+         \PY{n}{plt}\PY{o}{.}\PY{n}{figure}\PY{p}{(}\PY{n}{figsize}\PY{o}{=}\PY{p}{(}\PY{l+m+mi}{10}\PY{p}{,} \PY{l+m+mi}{5}\PY{p}{)}\PY{p}{)}
+         \PY{n}{plt}\PY{o}{.}\PY{n}{scatter}\PY{p}{(}\PY{n}{X}\PY{p}{,} \PY{n}{y}\PY{p}{,} \PY{n}{c}\PY{o}{=}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{k}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,} \PY{n}{label}\PY{o}{=}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{Data}\PY{l+s+s1}{\PYZsq{}}\PY{p}{)}
+         \PY{n}{plt}\PY{o}{.}\PY{n}{plot}\PY{p}{(}\PY{n}{X\PYZus{}plot}\PY{p}{,} \PY{n}{true\PYZus{}y}\PY{p}{)}\PY{p}{;}
+\end{Verbatim}
+
+
+    \begin{center}
+    \adjustimage{max size={0.9\linewidth}{0.9\paperheight}}{output_29_0.pdf}
+    \end{center}
+    { \hspace*{\fill} \\}
+    
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}54}]:} \PY{n}{svr} \PY{o}{=} \PY{n}{SVR}\PY{p}{(}\PY{n}{kernel}\PY{o}{=}\PY{n}{build\PYZus{}ess}\PY{p}{(}\PY{l+m+mf}{0.5}\PY{p}{,} \PY{l+m+mf}{6.5}\PY{p}{)}\PY{p}{)}
+         \PY{n}{svr}\PY{o}{.}\PY{n}{fit}\PY{p}{(}\PY{n}{X}\PY{p}{,} \PY{n}{y}\PY{p}{)}
+         \PY{n}{pred} \PY{o}{=} \PY{n}{svr}\PY{o}{.}\PY{n}{predict}\PY{p}{(}\PY{n}{X\PYZus{}plot}\PY{p}{)}
+         
+         \PY{n}{plt}\PY{o}{.}\PY{n}{figure}\PY{p}{(}\PY{n}{figsize}\PY{o}{=}\PY{p}{(}\PY{l+m+mi}{10}\PY{p}{,} \PY{l+m+mi}{5}\PY{p}{)}\PY{p}{)}
+         \PY{n}{plt}\PY{o}{.}\PY{n}{plot}\PY{p}{(}\PY{n}{X\PYZus{}plot}\PY{p}{,} \PY{n}{pred}\PY{p}{,} \PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{r\PYZhy{}}\PY{l+s+s1}{\PYZsq{}}\PY{p}{)}
+         \PY{n}{plt}\PY{o}{.}\PY{n}{scatter}\PY{p}{(}\PY{n}{X}\PY{p}{,} \PY{n}{y}\PY{p}{,} \PY{n}{c}\PY{o}{=}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{k}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,} \PY{n}{label}\PY{o}{=}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{Data}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,} \PY{n}{alpha}\PY{o}{=}\PY{l+m+mf}{0.08}\PY{p}{)}
+         \PY{n}{plt}\PY{o}{.}\PY{n}{plot}\PY{p}{(}\PY{n}{X\PYZus{}plot}\PY{p}{,} \PY{n}{true\PYZus{}y}\PY{p}{)}\PY{p}{;}
+\end{Verbatim}
+
+
+    \begin{center}
+    \adjustimage{max size={0.9\linewidth}{0.9\paperheight}}{output_30_0.pdf}
+    \end{center}
+    { \hspace*{\fill} \\}
+    
+    Fitting the same SVM using the optimal parameters from the previous
+subtask does not work anymore. We can see that it does not fit the trend
+well and that it goes along the mean of the training data.
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}58}]:} \PY{k+kn}{from} \PY{n+nn}{sklearn}\PY{n+nn}{.}\PY{n+nn}{gaussian\PYZus{}process}\PY{n+nn}{.}\PY{n+nn}{kernels} \PY{k}{import} \PY{n}{WhiteKernel}\PY{p}{,} \PY{n}{ExpSineSquared}\PY{p}{,} \PY{n}{RBF}
+         
+         \PY{c+c1}{\PYZsh{} Replace `length\PYZus{}scale` and `periodicity` with the values found in the previous part.}
+         \PY{n}{kernel\PYZus{}simple} \PY{o}{=} \PY{n}{ExpSineSquared}\PY{p}{(}\PY{n}{length\PYZus{}scale}\PY{o}{=}\PY{l+m+mf}{0.5}\PY{p}{,} \PY{n}{periodicity}\PY{o}{=}\PY{l+m+mf}{6.5}\PY{p}{)} \PY{c+c1}{\PYZsh{} periodic component}
+         
+         \PY{n}{k1} \PY{o}{=} \PY{l+m+mi}{4300} \PY{o}{*} \PY{n}{RBF}\PY{p}{(}\PY{n}{length\PYZus{}scale}\PY{o}{=}\PY{l+m+mf}{70.0}\PY{p}{)}  \PY{c+c1}{\PYZsh{} long term smooth rising trend}
+         \PY{n}{k2} \PY{o}{=} \PY{l+m+mi}{6} \PY{o}{*} \PY{n}{RBF}\PY{p}{(}\PY{n}{length\PYZus{}scale}\PY{o}{=}\PY{l+m+mf}{90.0}\PY{p}{)} \PY{o}{*} \PY{n}{ExpSineSquared}\PY{p}{(}\PY{n}{length\PYZus{}scale}\PY{o}{=}\PY{l+m+mf}{1.3}\PY{p}{,} \PY{n}{periodicity}\PY{o}{=}\PY{l+m+mf}{1.0}\PY{p}{)}  \PY{c+c1}{\PYZsh{} periodic component}
+         \PY{n}{k3} \PY{o}{=} \PY{l+m+mf}{0.03} \PY{o}{*} \PY{n}{RBF}\PY{p}{(}\PY{n}{length\PYZus{}scale}\PY{o}{=}\PY{l+m+mf}{0.134}\PY{p}{)} \PY{o}{+} \PY{n}{WhiteKernel}\PY{p}{(}\PY{n}{noise\PYZus{}level}\PY{o}{=}\PY{l+m+mf}{0.035}\PY{p}{)}  \PY{c+c1}{\PYZsh{} noise terms}
+         
+         \PY{n}{k} \PY{o}{=} \PY{n}{k1} \PY{o}{*} \PY{n}{k2} \PY{o}{*} \PY{n}{k3}
+\end{Verbatim}
+
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}56}]:} \PY{k+kn}{from} \PY{n+nn}{sklearn}\PY{n+nn}{.}\PY{n+nn}{gaussian\PYZus{}process} \PY{k}{import} \PY{n}{GaussianProcessRegressor}
+         
+         \PY{n}{indices\PYZus{}X\PYZus{}test} \PY{o}{=} \PY{n}{np}\PY{o}{.}\PY{n}{where}\PY{p}{(}\PY{n}{X\PYZus{}plot}\PY{o}{\PYZlt{}}\PY{o}{=}\PY{l+m+mi}{30}\PY{p}{)}\PY{p}{[}\PY{l+m+mi}{0}\PY{p}{]}
+         \PY{n}{indices\PYZus{}X\PYZus{}extr} \PY{o}{=} \PY{n}{np}\PY{o}{.}\PY{n}{where}\PY{p}{(}\PY{n}{X\PYZus{}plot}\PY{o}{\PYZgt{}}\PY{l+m+mi}{30}\PY{p}{)}\PY{p}{[}\PY{l+m+mi}{0}\PY{p}{]}
+         
+         \PY{n}{X\PYZus{}test} \PY{o}{=} \PY{n}{X\PYZus{}plot}\PY{p}{[}\PY{n}{indices\PYZus{}X\PYZus{}test}\PY{p}{]}
+         \PY{n}{y\PYZus{}test} \PY{o}{=} \PY{n}{true\PYZus{}y}\PY{p}{[}\PY{n}{indices\PYZus{}X\PYZus{}test}\PY{p}{]}
+         \PY{n}{X\PYZus{}extr} \PY{o}{=} \PY{n}{X\PYZus{}plot}\PY{p}{[}\PY{n}{indices\PYZus{}X\PYZus{}extr}\PY{p}{]}
+         \PY{n}{y\PYZus{}extr} \PY{o}{=} \PY{n}{true\PYZus{}y}\PY{p}{[}\PY{n}{indices\PYZus{}X\PYZus{}extr}\PY{p}{]}
+         
+         \PY{n}{gp} \PY{o}{=} \PY{n}{GaussianProcessRegressor}\PY{p}{(}\PY{n}{kernel}\PY{o}{=}\PY{n}{kernel\PYZus{}simple}\PY{p}{,} \PY{n}{alpha}\PY{o}{=}\PY{l+m+mf}{0.1}\PY{p}{,} \PY{n}{normalize\PYZus{}y}\PY{o}{=}\PY{k+kc}{True}\PY{p}{)}
+         \PY{n}{gp}\PY{o}{.}\PY{n}{fit}\PY{p}{(}\PY{n}{X}\PY{p}{,} \PY{n}{y}\PY{p}{)}
+         \PY{n}{pred}\PY{p}{,} \PY{n}{sigma} \PY{o}{=} \PY{n}{gp}\PY{o}{.}\PY{n}{predict}\PY{p}{(}\PY{n}{X\PYZus{}plot}\PY{p}{,} \PY{n}{return\PYZus{}std}\PY{o}{=}\PY{k+kc}{True}\PY{p}{)}
+         
+         \PY{n}{interval1} \PY{o}{=} \PY{n}{gp}\PY{o}{.}\PY{n}{score}\PY{p}{(}\PY{n}{X\PYZus{}test}\PY{p}{,} \PY{n}{y\PYZus{}test}\PY{p}{)}
+         \PY{n+nb}{print}\PY{p}{(}\PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{Score on test data in range [0,30]: }\PY{l+s+si}{\PYZob{}:.2f\PYZcb{}}\PY{l+s+s2}{\PYZdq{}}\PY{o}{.}\PY{n}{format}\PY{p}{(}\PY{n}{interval1}\PY{p}{)}\PY{p}{)}
+         
+         \PY{n}{interval2} \PY{o}{=} \PY{n}{gp}\PY{o}{.}\PY{n}{score}\PY{p}{(}\PY{n}{X\PYZus{}extr}\PY{p}{,} \PY{n}{y\PYZus{}extr}\PY{p}{)}
+         \PY{n+nb}{print}\PY{p}{(}\PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{Score on test data in range (30,40]: }\PY{l+s+si}{\PYZob{}:.2f\PYZcb{}}\PY{l+s+s2}{\PYZdq{}}\PY{o}{.}\PY{n}{format}\PY{p}{(}\PY{n}{interval2}\PY{p}{)}\PY{p}{)}
+         
+         \PY{n}{plt}\PY{o}{.}\PY{n}{figure}\PY{p}{(}\PY{n}{figsize}\PY{o}{=}\PY{p}{(}\PY{l+m+mi}{10}\PY{p}{,} \PY{l+m+mi}{5}\PY{p}{)}\PY{p}{)}
+         \PY{n}{plt}\PY{o}{.}\PY{n}{plot}\PY{p}{(}\PY{n}{X\PYZus{}plot}\PY{p}{,} \PY{n}{pred}\PY{p}{,} \PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{g\PYZhy{}}\PY{l+s+s1}{\PYZsq{}}\PY{p}{)}
+         \PY{n}{plt}\PY{o}{.}\PY{n}{scatter}\PY{p}{(}\PY{n}{X}\PY{p}{,} \PY{n}{y}\PY{p}{,} \PY{n}{c}\PY{o}{=}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{k}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,} \PY{n}{label}\PY{o}{=}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{Data}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,} \PY{n}{alpha}\PY{o}{=}\PY{l+m+mf}{0.08}\PY{p}{)}
+         \PY{n}{plt}\PY{o}{.}\PY{n}{fill}\PY{p}{(}\PY{n}{np}\PY{o}{.}\PY{n}{concatenate}\PY{p}{(}\PY{p}{[}\PY{n}{X\PYZus{}plot}\PY{p}{,} \PY{n}{X\PYZus{}plot}\PY{p}{[}\PY{p}{:}\PY{p}{:}\PY{o}{\PYZhy{}}\PY{l+m+mi}{1}\PY{p}{]}\PY{p}{]}\PY{p}{)}\PY{p}{,}
+                      \PY{n}{np}\PY{o}{.}\PY{n}{concatenate}\PY{p}{(}\PY{p}{[}\PY{n}{pred} \PY{o}{\PYZhy{}} \PY{l+m+mf}{1.9600} \PY{o}{*} \PY{n}{sigma}\PY{p}{,}
+                                     \PY{p}{(}\PY{n}{pred} \PY{o}{+} \PY{l+m+mf}{1.9600} \PY{o}{*} \PY{n}{sigma}\PY{p}{)}\PY{p}{[}\PY{p}{:}\PY{p}{:}\PY{o}{\PYZhy{}}\PY{l+m+mi}{1}\PY{p}{]}\PY{p}{]}\PY{p}{)}\PY{p}{,}
+                      \PY{n}{alpha}\PY{o}{=}\PY{o}{.}\PY{l+m+mi}{2}\PY{p}{,} \PY{n}{fc}\PY{o}{=}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{g}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,} \PY{n}{ec}\PY{o}{=}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{None}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,} \PY{n}{label}\PY{o}{=}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{95}\PY{l+s+si}{\PYZpc{} c}\PY{l+s+s1}{onfidence interval}\PY{l+s+s1}{\PYZsq{}}\PY{p}{)}
+         \PY{n}{plt}\PY{o}{.}\PY{n}{plot}\PY{p}{(}\PY{n}{X\PYZus{}plot}\PY{p}{,} \PY{n}{true\PYZus{}y}\PY{p}{)}\PY{p}{;}
+\end{Verbatim}
+
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+Score on test data in range [0,30]: 1.00
+Score on test data in range (30,40]: -28.54
+
+    \end{Verbatim}
+
+    \begin{center}
+    \adjustimage{max size={0.9\linewidth}{0.9\paperheight}}{output_33_1.pdf}
+    \end{center}
+    { \hspace*{\fill} \\}
+    
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}59}]:} \PY{n}{gp2} \PY{o}{=} \PY{n}{GaussianProcessRegressor}\PY{p}{(}\PY{n}{kernel}\PY{o}{=}\PY{n}{k}\PY{p}{)}
+         \PY{n}{gp2}\PY{o}{.}\PY{n}{fit}\PY{p}{(}\PY{n}{X}\PY{p}{,} \PY{n}{y}\PY{p}{)}
+         \PY{n}{pred}\PY{p}{,} \PY{n}{sigma} \PY{o}{=} \PY{n}{gp2}\PY{o}{.}\PY{n}{predict}\PY{p}{(}\PY{n}{X\PYZus{}plot}\PY{p}{,} \PY{n}{return\PYZus{}std}\PY{o}{=}\PY{k+kc}{True}\PY{p}{)}
+         
+         \PY{n}{interval1} \PY{o}{=} \PY{n}{gp2}\PY{o}{.}\PY{n}{score}\PY{p}{(}\PY{n}{X\PYZus{}test}\PY{p}{,} \PY{n}{y\PYZus{}test}\PY{p}{)}
+         \PY{n+nb}{print}\PY{p}{(}\PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{Score on test data in range [0,30]: }\PY{l+s+si}{\PYZob{}:.2f\PYZcb{}}\PY{l+s+s2}{\PYZdq{}}\PY{o}{.}\PY{n}{format}\PY{p}{(}\PY{n}{interval1}\PY{p}{)}\PY{p}{)}
+         
+         \PY{n}{interval2} \PY{o}{=} \PY{n}{gp2}\PY{o}{.}\PY{n}{score}\PY{p}{(}\PY{n}{X\PYZus{}extr}\PY{p}{,} \PY{n}{y\PYZus{}extr}\PY{p}{)}
+         \PY{n+nb}{print}\PY{p}{(}\PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{Score on test data in range (30,40]: }\PY{l+s+si}{\PYZob{}:.2f\PYZcb{}}\PY{l+s+s2}{\PYZdq{}}\PY{o}{.}\PY{n}{format}\PY{p}{(}\PY{n}{interval2}\PY{p}{)}\PY{p}{)}
+         
+         \PY{n}{plt}\PY{o}{.}\PY{n}{figure}\PY{p}{(}\PY{n}{figsize}\PY{o}{=}\PY{p}{(}\PY{l+m+mi}{10}\PY{p}{,} \PY{l+m+mi}{5}\PY{p}{)}\PY{p}{)}
+         \PY{n}{plt}\PY{o}{.}\PY{n}{plot}\PY{p}{(}\PY{n}{X\PYZus{}plot}\PY{p}{,} \PY{n}{pred}\PY{p}{,} \PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{r\PYZhy{}}\PY{l+s+s1}{\PYZsq{}}\PY{p}{)}
+         \PY{n}{plt}\PY{o}{.}\PY{n}{scatter}\PY{p}{(}\PY{n}{X}\PY{p}{,} \PY{n}{y}\PY{p}{,} \PY{n}{c}\PY{o}{=}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{k}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,} \PY{n}{label}\PY{o}{=}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{Data}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,} \PY{n}{alpha}\PY{o}{=}\PY{l+m+mf}{0.08}\PY{p}{)}
+         \PY{n}{plt}\PY{o}{.}\PY{n}{fill}\PY{p}{(}\PY{n}{np}\PY{o}{.}\PY{n}{concatenate}\PY{p}{(}\PY{p}{[}\PY{n}{X\PYZus{}plot}\PY{p}{,} \PY{n}{X\PYZus{}plot}\PY{p}{[}\PY{p}{:}\PY{p}{:}\PY{o}{\PYZhy{}}\PY{l+m+mi}{1}\PY{p}{]}\PY{p}{]}\PY{p}{)}\PY{p}{,}
+                      \PY{n}{np}\PY{o}{.}\PY{n}{concatenate}\PY{p}{(}\PY{p}{[}\PY{n}{pred} \PY{o}{\PYZhy{}} \PY{l+m+mf}{1.9600} \PY{o}{*} \PY{n}{sigma}\PY{p}{,}
+                                     \PY{p}{(}\PY{n}{pred} \PY{o}{+} \PY{l+m+mf}{1.9600} \PY{o}{*} \PY{n}{sigma}\PY{p}{)}\PY{p}{[}\PY{p}{:}\PY{p}{:}\PY{o}{\PYZhy{}}\PY{l+m+mi}{1}\PY{p}{]}\PY{p}{]}\PY{p}{)}\PY{p}{,}
+                      \PY{n}{alpha}\PY{o}{=}\PY{o}{.}\PY{l+m+mi}{2}\PY{p}{,} \PY{n}{fc}\PY{o}{=}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{r}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,} \PY{n}{ec}\PY{o}{=}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{None}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,} \PY{n}{label}\PY{o}{=}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{95}\PY{l+s+si}{\PYZpc{} c}\PY{l+s+s1}{onfidence interval}\PY{l+s+s1}{\PYZsq{}}\PY{p}{)}
+         \PY{n}{plt}\PY{o}{.}\PY{n}{plot}\PY{p}{(}\PY{n}{X\PYZus{}plot}\PY{p}{,} \PY{n}{true\PYZus{}y}\PY{p}{)}\PY{p}{;}
+\end{Verbatim}
+
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+Score on test data in range [0,30]: 1.00
+Score on test data in range (30,40]: 0.97
+
+    \end{Verbatim}
+
+    \begin{center}
+    \adjustimage{max size={0.9\linewidth}{0.9\paperheight}}{output_34_1.pdf}
+    \end{center}
+    { \hspace*{\fill} \\}
+    
+    The GP using ExpSineSquared kernel with regularization and normalization
+fits the data perfectly on the interval {[}0,30{]}. It gives us very
+small confidence interval and R\^{}2 score of 1.00. However,
+extrapolation performance is not good as it moves towards the mean of
+the data and confidence interval becomes larger.
+
+The GP using the kernel with three components, also fits the data
+perfectly on the interval {[}0,30{]}. R\^{}2 score stays the same, but
+the confidence interval becomes bigger. However, the difference can be
+spotted on the interval (30,40{]} where it out preforms the
+ExpSineSquared kernel. But since it is based on the RBF kernel which has
+a typical 'Gaussian shape', it will not keep an upward trend infinitely,
+but go downwards after a certain point. This can be already seen toward
+the end of the interval (30,40{]}.
+
+    \subsection{Bayesian updates (3 points
+(2+1))}\label{bayesian-updates-3-points-21}
+
+We consider real data about solar radiation measured by a weather
+balloon: https://www.openml.org/d/512. We'll use only the raw data (at
+least the first 1000 points) and try to learn the (very noisy) trend.
+
+    \begin{enumerate}
+\def\labelenumi{\arabic{enumi}.}
+\tightlist
+\item
+  Train a Gaussian process on an increasing amount of samples of the
+  training data. Use a simple RBF kernel:
+  \texttt{RBF(10,\ (1e-2,\ 1e2))}
+\end{enumerate}
+
+\begin{itemize}
+\tightlist
+\item
+  Start with 10 \emph{random} samples and plot the predictions (both the
+  mean and the uncertainty interval) for both training and test data, as
+  shown in class. Also compute \(R^2\) on the training data.
+\item
+  Repeat and 10 more points, retrain and redraw. Do this a couple of
+  times and interpret/explain what you see.
+\end{itemize}
+
+\begin{enumerate}
+\def\labelenumi{\arabic{enumi}.}
+\setcounter{enumi}{1}
+\tightlist
+\item
+  Train the Gaussian on the full training set.
+\end{enumerate}
+
+\begin{itemize}
+\tightlist
+\item
+  Plot the predictions (including the uncertainty interval) on the full
+  dataset. Evaluate on the test set using \(R^2\)
+\item
+  Interpret the results. Is the kernel right? Is the GP
+  under/overfitting?
+\item
+  Try to improve the results by tuning the kernel. Do this either
+  manually or using a small grid/random search.
+\end{itemize}
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}2}]:} \PY{k+kn}{from} \PY{n+nn}{sklearn}\PY{n+nn}{.}\PY{n+nn}{gaussian\PYZus{}process} \PY{k}{import} \PY{n}{GaussianProcessRegressor}
+        \PY{k+kn}{from} \PY{n+nn}{sklearn}\PY{n+nn}{.}\PY{n+nn}{gaussian\PYZus{}process}\PY{n+nn}{.}\PY{n+nn}{kernels} \PY{k}{import} \PY{n}{RBF}\PY{p}{,} \PY{n}{ConstantKernel} \PY{k}{as} \PY{n}{C}
+        \PY{k+kn}{from} \PY{n+nn}{sklearn}\PY{n+nn}{.}\PY{n+nn}{model\PYZus{}selection} \PY{k}{import} \PY{n}{GridSearchCV}
+        
+        \PY{c+c1}{\PYZsh{} Get the data}
+        \PY{n}{balloon\PYZus{}data} \PY{o}{=} \PY{n}{oml}\PY{o}{.}\PY{n}{datasets}\PY{o}{.}\PY{n}{get\PYZus{}dataset}\PY{p}{(}\PY{l+m+mi}{512}\PY{p}{)} \PY{c+c1}{\PYZsh{} Download Balloon data}
+        \PY{n}{X}\PY{p}{,} \PY{n}{y} \PY{o}{=} \PY{n}{balloon\PYZus{}data}\PY{o}{.}\PY{n}{get\PYZus{}data}\PY{p}{(}\PY{n}{target}\PY{o}{=}\PY{n}{balloon\PYZus{}data}\PY{o}{.}\PY{n}{default\PYZus{}target\PYZus{}attribute}\PY{p}{)}\PY{p}{;}
+        
+        \PY{n}{train} \PY{o}{=} \PY{n}{X}\PY{p}{[}\PY{p}{:}\PY{l+m+mi}{1000}\PY{p}{]}
+        \PY{n}{test} \PY{o}{=} \PY{n}{X}\PY{p}{[}\PY{l+m+mi}{1000}\PY{p}{:}\PY{l+m+mi}{1500}\PY{p}{]}
+        \PY{n}{X\PYZus{}train} \PY{o}{=} \PY{n}{np}\PY{o}{.}\PY{n}{array}\PY{p}{(}\PY{n+nb}{list}\PY{p}{(}\PY{n+nb}{range}\PY{p}{(}\PY{l+m+mi}{1000}\PY{p}{)}\PY{p}{)}\PY{p}{)}\PY{p}{[}\PY{n}{np}\PY{o}{.}\PY{n}{newaxis}\PY{p}{]}\PY{o}{.}\PY{n}{T}
+        \PY{n}{y\PYZus{}train} \PY{o}{=} \PY{n}{X}\PY{p}{[}\PY{p}{:}\PY{l+m+mi}{1000}\PY{p}{]}\PY{o}{.}\PY{n}{reshape}\PY{p}{(}\PY{o}{\PYZhy{}}\PY{l+m+mi}{1}\PY{p}{,} \PY{l+m+mi}{1}\PY{p}{)}
+        \PY{n}{X\PYZus{}test} \PY{o}{=} \PY{n}{np}\PY{o}{.}\PY{n}{array}\PY{p}{(}\PY{n+nb}{list}\PY{p}{(}\PY{n+nb}{range}\PY{p}{(}\PY{l+m+mi}{1000}\PY{p}{,}\PY{l+m+mi}{1500}\PY{p}{)}\PY{p}{)}\PY{p}{)}\PY{p}{[}\PY{n}{np}\PY{o}{.}\PY{n}{newaxis}\PY{p}{]}\PY{o}{.}\PY{n}{T}
+        \PY{n}{y\PYZus{}test} \PY{o}{=} \PY{n}{X}\PY{p}{[}\PY{l+m+mi}{1000}\PY{p}{:}\PY{l+m+mi}{1500}\PY{p}{]}\PY{o}{.}\PY{n}{reshape}\PY{p}{(}\PY{o}{\PYZhy{}}\PY{l+m+mi}{1}\PY{p}{,} \PY{l+m+mi}{1}\PY{p}{)}
+        \PY{n}{X\PYZus{}all} \PY{o}{=} \PY{n}{np}\PY{o}{.}\PY{n}{array}\PY{p}{(}\PY{n+nb}{list}\PY{p}{(}\PY{n+nb}{range}\PY{p}{(}\PY{l+m+mi}{1500}\PY{p}{)}\PY{p}{)}\PY{p}{)}\PY{p}{[}\PY{n}{np}\PY{o}{.}\PY{n}{newaxis}\PY{p}{]}\PY{o}{.}\PY{n}{T}
+        
+        \PY{n}{pd}\PY{o}{.}\PY{n}{Series}\PY{p}{(}\PY{n}{X}\PY{p}{[}\PY{p}{:}\PY{l+m+mi}{1500}\PY{p}{,}\PY{l+m+mi}{0}\PY{p}{]}\PY{p}{)}\PY{o}{.}\PY{n}{plot}\PY{p}{(}\PY{p}{)}\PY{p}{;}
+\end{Verbatim}
+
+
+    \begin{center}
+    \adjustimage{max size={0.9\linewidth}{0.9\paperheight}}{output_38_0.pdf}
+    \end{center}
+    { \hspace*{\fill} \\}
+    
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}5}]:} \PY{n}{indices} \PY{o}{=} \PY{p}{[}\PY{p}{]}
+        
+        \PY{k}{for} \PY{n}{i} \PY{o+ow}{in} \PY{n+nb}{range}\PY{p}{(}\PY{l+m+mi}{5}\PY{p}{)}\PY{p}{:}
+            \PY{n}{indices}\PY{o}{.}\PY{n}{extend}\PY{p}{(}\PY{n}{np}\PY{o}{.}\PY{n}{random}\PY{o}{.}\PY{n}{choice}\PY{p}{(}\PY{n+nb}{range}\PY{p}{(}\PY{l+m+mi}{1000}\PY{p}{)}\PY{p}{,} \PY{n}{size}\PY{o}{=}\PY{l+m+mi}{10}\PY{p}{,} \PY{n}{replace}\PY{o}{=}\PY{k+kc}{False}\PY{p}{)}\PY{p}{)}
+            \PY{n}{X\PYZus{}train\PYZus{}sample} \PY{o}{=} \PY{n}{X\PYZus{}train}\PY{p}{[}\PY{n}{indices}\PY{p}{]}
+            \PY{n}{y\PYZus{}train\PYZus{}sample} \PY{o}{=} \PY{n}{y\PYZus{}train}\PY{p}{[}\PY{n}{indices}\PY{p}{]}
+        
+            \PY{c+c1}{\PYZsh{} Instanciate a Gaussian Process model}
+            \PY{n}{kernel} \PY{o}{=} \PY{l+m+mf}{1.0} \PY{o}{*} \PY{n}{RBF}\PY{p}{(}\PY{l+m+mi}{10}\PY{p}{,} \PY{p}{(}\PY{l+m+mf}{1e\PYZhy{}2}\PY{p}{,} \PY{l+m+mf}{1e2}\PY{p}{)}\PY{p}{)}
+            \PY{n}{gp} \PY{o}{=} \PY{n}{GaussianProcessRegressor}\PY{p}{(}\PY{n}{kernel}\PY{o}{=}\PY{n}{kernel}\PY{p}{,} \PY{n}{n\PYZus{}restarts\PYZus{}optimizer}\PY{o}{=}\PY{l+m+mi}{9}\PY{p}{,} \PY{n}{normalize\PYZus{}y}\PY{o}{=}\PY{k+kc}{True}\PY{p}{,} \PY{n}{alpha}\PY{o}{=}\PY{l+m+mf}{1e\PYZhy{}06}\PY{p}{)}
+        
+            \PY{c+c1}{\PYZsh{} Fit to data using Maximum Likelihood Estimation of the parameters}
+            \PY{n}{gp}\PY{o}{.}\PY{n}{fit}\PY{p}{(}\PY{n}{X\PYZus{}train\PYZus{}sample}\PY{p}{,} \PY{n}{y\PYZus{}train\PYZus{}sample}\PY{p}{)}
+        
+            \PY{c+c1}{\PYZsh{} Make the prediction on the meshed x\PYZhy{}axis (ask for MSE as well)}
+            \PY{n}{y\PYZus{}pred}\PY{p}{,} \PY{n}{sigma} \PY{o}{=} \PY{n}{gp}\PY{o}{.}\PY{n}{predict}\PY{p}{(}\PY{n}{X\PYZus{}all}\PY{p}{,} \PY{n}{return\PYZus{}std}\PY{o}{=}\PY{k+kc}{True}\PY{p}{)}
+        
+            \PY{c+c1}{\PYZsh{} Plot the function, the prediction and the 95\PYZpc{} confidence interval based on}
+            \PY{c+c1}{\PYZsh{} the MSE}
+            \PY{n}{fig} \PY{o}{=} \PY{n}{plt}\PY{o}{.}\PY{n}{figure}\PY{p}{(}\PY{n}{figsize}\PY{o}{=}\PY{p}{(}\PY{l+m+mi}{14}\PY{p}{,}\PY{l+m+mi}{6}\PY{p}{)}\PY{p}{)}
+            \PY{n}{plt}\PY{o}{.}\PY{n}{plot}\PY{p}{(}\PY{n}{X\PYZus{}train}\PY{p}{,} \PY{n}{y\PYZus{}train}\PY{p}{,} \PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{r:}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,} \PY{n}{label}\PY{o}{=}\PY{l+s+sa}{u}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{Train Data}\PY{l+s+s1}{\PYZsq{}}\PY{p}{)}
+            \PY{n}{plt}\PY{o}{.}\PY{n}{plot}\PY{p}{(}\PY{n}{X\PYZus{}test}\PY{p}{,} \PY{n}{y\PYZus{}test}\PY{p}{,} \PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{:}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,} \PY{n}{label}\PY{o}{=}\PY{l+s+sa}{u}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{Test Data}\PY{l+s+s1}{\PYZsq{}}\PY{p}{)}
+            \PY{n}{plt}\PY{o}{.}\PY{n}{plot}\PY{p}{(}\PY{n}{X\PYZus{}train\PYZus{}sample}\PY{p}{,} \PY{n}{y\PYZus{}train\PYZus{}sample}\PY{p}{,} \PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{r.}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,} \PY{n}{markersize}\PY{o}{=}\PY{l+m+mi}{10}\PY{p}{,} \PY{n}{label}\PY{o}{=}\PY{l+s+sa}{u}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{Train Observations}\PY{l+s+s1}{\PYZsq{}}\PY{p}{)}
+            \PY{n}{plt}\PY{o}{.}\PY{n}{plot}\PY{p}{(}\PY{n}{X\PYZus{}all}\PY{p}{,} \PY{n}{y\PYZus{}pred}\PY{p}{,} \PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{b\PYZhy{}}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,} \PY{n}{label}\PY{o}{=}\PY{l+s+sa}{u}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{Prediction}\PY{l+s+s1}{\PYZsq{}}\PY{p}{)}
+            \PY{n}{plt}\PY{o}{.}\PY{n}{fill}\PY{p}{(}\PY{n}{np}\PY{o}{.}\PY{n}{concatenate}\PY{p}{(}\PY{p}{[}\PY{n}{X\PYZus{}all}\PY{p}{,} \PY{n}{X\PYZus{}all}\PY{p}{[}\PY{p}{:}\PY{p}{:}\PY{o}{\PYZhy{}}\PY{l+m+mi}{1}\PY{p}{]}\PY{p}{]}\PY{p}{)}\PY{p}{,}
+                 \PY{n}{np}\PY{o}{.}\PY{n}{concatenate}\PY{p}{(}\PY{p}{[}\PY{n}{y\PYZus{}pred}\PY{o}{.}\PY{n}{ravel}\PY{p}{(}\PY{p}{)} \PY{o}{\PYZhy{}} \PY{l+m+mf}{1.9600} \PY{o}{*} \PY{n}{sigma}\PY{p}{,}
+                                \PY{p}{(}\PY{n}{y\PYZus{}pred}\PY{o}{.}\PY{n}{ravel}\PY{p}{(}\PY{p}{)} \PY{o}{+} \PY{l+m+mf}{1.9600} \PY{o}{*} \PY{n}{sigma}\PY{p}{)}\PY{p}{[}\PY{p}{:}\PY{p}{:}\PY{o}{\PYZhy{}}\PY{l+m+mi}{1}\PY{p}{]}\PY{p}{]}\PY{p}{)}\PY{p}{,}
+                 \PY{n}{alpha}\PY{o}{=}\PY{o}{.}\PY{l+m+mi}{5}\PY{p}{,} \PY{n}{fc}\PY{o}{=}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{b}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,} \PY{n}{ec}\PY{o}{=}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{None}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,} \PY{n}{label}\PY{o}{=}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{95}\PY{l+s+si}{\PYZpc{} c}\PY{l+s+s1}{onfidence interval}\PY{l+s+s1}{\PYZsq{}}\PY{p}{)}
+            \PY{n}{plt}\PY{o}{.}\PY{n}{ylim}\PY{p}{(}\PY{l+m+mi}{0}\PY{p}{,} \PY{l+m+mi}{3}\PY{p}{)}
+            \PY{n}{plt}\PY{o}{.}\PY{n}{title}\PY{p}{(}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{Trained on }\PY{l+s+s1}{\PYZsq{}}\PY{o}{+}\PY{n+nb}{str}\PY{p}{(}\PY{p}{(}\PY{n}{i}\PY{o}{+}\PY{l+m+mi}{1}\PY{p}{)}\PY{o}{*}\PY{l+m+mi}{10}\PY{p}{)}\PY{o}{+}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{ samples}\PY{l+s+s1}{\PYZsq{}}\PY{p}{)}
+            \PY{n}{plt}\PY{o}{.}\PY{n}{legend}\PY{p}{(}\PY{n}{loc}\PY{o}{=}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{best}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,} \PY{n}{prop}\PY{o}{=}\PY{p}{\PYZob{}}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{size}\PY{l+s+s1}{\PYZsq{}}\PY{p}{:} \PY{l+m+mi}{12}\PY{p}{\PYZcb{}}\PY{p}{)}
+            \PY{n}{plt}\PY{o}{.}\PY{n}{show}\PY{p}{(}\PY{p}{)}
+        
+            \PY{n+nb}{print}\PY{p}{(}\PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{R\PYZca{}2 score on training data (}\PY{l+s+si}{\PYZob{}\PYZcb{}}\PY{l+s+s2}{ samples): }\PY{l+s+si}{\PYZob{}\PYZcb{}}\PY{l+s+se}{\PYZbs{}n}\PY{l+s+se}{\PYZbs{}n}\PY{l+s+s2}{\PYZdq{}}\PY{o}{.}\PY{n}{format}\PY{p}{(}\PY{p}{(}\PY{n}{i}\PY{o}{+}\PY{l+m+mi}{1}\PY{p}{)}\PY{o}{*}\PY{l+m+mi}{10}\PY{p}{,} \PY{n}{gp}\PY{o}{.}\PY{n}{score}\PY{p}{(}\PY{n}{X\PYZus{}train}\PY{p}{,} \PY{n}{y\PYZus{}train}\PY{p}{)}\PY{p}{)}\PY{p}{)}
+\end{Verbatim}
+
+
+    \begin{center}
+    \adjustimage{max size={0.9\linewidth}{0.9\paperheight}}{output_39_0.pdf}
+    \end{center}
+    { \hspace*{\fill} \\}
+    
+    \begin{Verbatim}[commandchars=\\\{\}]
+R\^{}2 score on training data (10 samples): -0.18450669182154392
+
+
+
+    \end{Verbatim}
+
+    \begin{center}
+    \adjustimage{max size={0.9\linewidth}{0.9\paperheight}}{output_39_2.pdf}
+    \end{center}
+    { \hspace*{\fill} \\}
+    
+    \begin{Verbatim}[commandchars=\\\{\}]
+R\^{}2 score on training data (20 samples): -0.1475449133695994
+
+
+
+    \end{Verbatim}
+
+    \begin{center}
+    \adjustimage{max size={0.9\linewidth}{0.9\paperheight}}{output_39_4.pdf}
+    \end{center}
+    { \hspace*{\fill} \\}
+    
+    \begin{Verbatim}[commandchars=\\\{\}]
+R\^{}2 score on training data (30 samples): -0.1255555203141423
+
+
+
+    \end{Verbatim}
+
+    \begin{center}
+    \adjustimage{max size={0.9\linewidth}{0.9\paperheight}}{output_39_6.pdf}
+    \end{center}
+    { \hspace*{\fill} \\}
+    
+    \begin{Verbatim}[commandchars=\\\{\}]
+R\^{}2 score on training data (40 samples): -0.09102872223737157
+
+
+
+    \end{Verbatim}
+
+    \begin{center}
+    \adjustimage{max size={0.9\linewidth}{0.9\paperheight}}{output_39_8.pdf}
+    \end{center}
+    { \hspace*{\fill} \\}
+    
+    \begin{Verbatim}[commandchars=\\\{\}]
+R\^{}2 score on training data (50 samples): -0.02406265597119051
+
+
+
+    \end{Verbatim}
+
+    Generally, we can observe that the R\^{}2 performances on training data
+tend to improve when increasing the number of samples. The score is
+heavily influenced by the quality of the randomly chosen samples: if one
+of the noisy observations is selected, it negatively affects the result.
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}62}]:} \PY{c+c1}{\PYZsh{} Training on full dataset with default kernel}
+         
+         \PY{c+c1}{\PYZsh{} Instanciate a Gaussian Process model}
+         \PY{n}{kernel} \PY{o}{=} \PY{l+m+mf}{1.0} \PY{o}{*} \PY{n}{RBF}\PY{p}{(}\PY{l+m+mi}{10}\PY{p}{,} \PY{p}{(}\PY{l+m+mf}{1e\PYZhy{}2}\PY{p}{,} \PY{l+m+mf}{1e2}\PY{p}{)}\PY{p}{)}
+         \PY{n}{gp} \PY{o}{=} \PY{n}{GaussianProcessRegressor}\PY{p}{(}\PY{n}{kernel}\PY{o}{=}\PY{n}{kernel}\PY{p}{,} \PY{n}{normalize\PYZus{}y}\PY{o}{=}\PY{k+kc}{True}\PY{p}{,} \PY{n}{alpha}\PY{o}{=}\PY{l+m+mf}{0.015}\PY{p}{)}
+         
+         \PY{c+c1}{\PYZsh{} Fit to data using Maximum Likelihood Estimation of the parameters}
+         \PY{n}{gp}\PY{o}{.}\PY{n}{fit}\PY{p}{(}\PY{n}{X\PYZus{}train}\PY{p}{,} \PY{n}{y\PYZus{}train}\PY{p}{)}
+         
+         \PY{c+c1}{\PYZsh{} Make the prediction on the meshed x\PYZhy{}axis (ask for MSE as well)}
+         \PY{n}{y\PYZus{}pred}\PY{p}{,} \PY{n}{sigma} \PY{o}{=} \PY{n}{gp}\PY{o}{.}\PY{n}{predict}\PY{p}{(}\PY{n}{X\PYZus{}all}\PY{p}{,} \PY{n}{return\PYZus{}std}\PY{o}{=}\PY{k+kc}{True}\PY{p}{)}
+         
+         \PY{c+c1}{\PYZsh{} Plot the function, the prediction and the 95\PYZpc{} confidence interval based on}
+         \PY{c+c1}{\PYZsh{} the MSE}
+         \PY{n}{fig} \PY{o}{=} \PY{n}{plt}\PY{o}{.}\PY{n}{figure}\PY{p}{(}\PY{n}{figsize}\PY{o}{=}\PY{p}{(}\PY{l+m+mi}{14}\PY{p}{,}\PY{l+m+mi}{6}\PY{p}{)}\PY{p}{)}
+         \PY{n}{plt}\PY{o}{.}\PY{n}{plot}\PY{p}{(}\PY{n}{X\PYZus{}train}\PY{p}{,} \PY{n}{y\PYZus{}train}\PY{p}{,} \PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{r:}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,} \PY{n}{label}\PY{o}{=}\PY{l+s+sa}{u}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{Train Data}\PY{l+s+s1}{\PYZsq{}}\PY{p}{)}
+         \PY{n}{plt}\PY{o}{.}\PY{n}{plot}\PY{p}{(}\PY{n}{X\PYZus{}test}\PY{p}{,} \PY{n}{y\PYZus{}test}\PY{p}{,} \PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{g:}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,} \PY{n}{label}\PY{o}{=}\PY{l+s+sa}{u}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{Test Data}\PY{l+s+s1}{\PYZsq{}}\PY{p}{)}
+         \PY{n}{plt}\PY{o}{.}\PY{n}{plot}\PY{p}{(}\PY{n}{X\PYZus{}all}\PY{p}{,} \PY{n}{y\PYZus{}pred}\PY{p}{,} \PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{b\PYZhy{}}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,} \PY{n}{label}\PY{o}{=}\PY{l+s+sa}{u}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{Prediction}\PY{l+s+s1}{\PYZsq{}}\PY{p}{)}
+         \PY{n}{plt}\PY{o}{.}\PY{n}{fill}\PY{p}{(}\PY{n}{np}\PY{o}{.}\PY{n}{concatenate}\PY{p}{(}\PY{p}{[}\PY{n}{X\PYZus{}all}\PY{p}{,} \PY{n}{X\PYZus{}all}\PY{p}{[}\PY{p}{:}\PY{p}{:}\PY{o}{\PYZhy{}}\PY{l+m+mi}{1}\PY{p}{]}\PY{p}{]}\PY{p}{)}\PY{p}{,}
+                     \PY{n}{np}\PY{o}{.}\PY{n}{concatenate}\PY{p}{(}\PY{p}{[}\PY{n}{y\PYZus{}pred}\PY{o}{.}\PY{n}{ravel}\PY{p}{(}\PY{p}{)} \PY{o}{\PYZhy{}} \PY{l+m+mf}{1.9600} \PY{o}{*} \PY{n}{sigma}\PY{p}{,} \PY{p}{(}\PY{n}{y\PYZus{}pred}\PY{o}{.}\PY{n}{ravel}\PY{p}{(}\PY{p}{)} \PY{o}{+} \PY{l+m+mf}{1.9600} \PY{o}{*} \PY{n}{sigma}\PY{p}{)}\PY{p}{[}\PY{p}{:}\PY{p}{:}\PY{o}{\PYZhy{}}\PY{l+m+mi}{1}\PY{p}{]}\PY{p}{]}\PY{p}{)}\PY{p}{,}
+                     \PY{n}{alpha}\PY{o}{=}\PY{o}{.}\PY{l+m+mi}{5}\PY{p}{,} \PY{n}{fc}\PY{o}{=}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{b}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,} \PY{n}{ec}\PY{o}{=}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{None}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,} \PY{n}{label}\PY{o}{=}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{95}\PY{l+s+si}{\PYZpc{} c}\PY{l+s+s1}{onfidence interval}\PY{l+s+s1}{\PYZsq{}}\PY{p}{)}
+         \PY{n}{plt}\PY{o}{.}\PY{n}{ylim}\PY{p}{(}\PY{l+m+mi}{0}\PY{p}{,} \PY{l+m+mi}{3}\PY{p}{)}
+         \PY{n}{plt}\PY{o}{.}\PY{n}{title}\PY{p}{(}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{Trained on full dataset}\PY{l+s+s1}{\PYZsq{}}\PY{p}{)}
+         \PY{n}{plt}\PY{o}{.}\PY{n}{legend}\PY{p}{(}\PY{n}{loc}\PY{o}{=}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{best}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,} \PY{n}{prop}\PY{o}{=}\PY{p}{\PYZob{}}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{size}\PY{l+s+s1}{\PYZsq{}}\PY{p}{:} \PY{l+m+mi}{12}\PY{p}{\PYZcb{}}\PY{p}{)}
+         \PY{n}{plt}\PY{o}{.}\PY{n}{show}\PY{p}{(}\PY{p}{)}
+         
+         \PY{n+nb}{print}\PY{p}{(}\PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{R\PYZca{}2 test score for default parameters: }\PY{l+s+si}{\PYZob{}\PYZcb{}}\PY{l+s+s2}{\PYZdq{}}\PY{o}{.}\PY{n}{format}\PY{p}{(}\PY{n}{gp}\PY{o}{.}\PY{n}{score}\PY{p}{(}\PY{n}{X\PYZus{}test}\PY{p}{,} \PY{n}{y\PYZus{}test}\PY{p}{)}\PY{p}{)}\PY{p}{)}
+\end{Verbatim}
+
+
+    \begin{center}
+    \adjustimage{max size={0.9\linewidth}{0.9\paperheight}}{output_41_0.pdf}
+    \end{center}
+    { \hspace*{\fill} \\}
+    
+    \begin{Verbatim}[commandchars=\\\{\}]
+R\^{}2 test score for default parameters: -0.5380864125621554
+
+    \end{Verbatim}
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}7}]:} \PY{c+c1}{\PYZsh{} Kernel tuning}
+        \PY{n}{best\PYZus{}score} \PY{o}{=} \PY{o}{\PYZhy{}}\PY{l+m+mi}{100}
+        \PY{n}{best\PYZus{}kernel} \PY{o}{=} \PY{l+m+mf}{1.0} \PY{o}{*} \PY{n}{RBF}\PY{p}{(}\PY{l+m+mf}{1.0}\PY{p}{)}
+        
+        \PY{k}{for} \PY{n}{length\PYZus{}scale} \PY{o+ow}{in} \PY{p}{[}\PY{l+m+mf}{0.1}\PY{p}{,} \PY{l+m+mf}{1.0}\PY{p}{,} \PY{l+m+mi}{10}\PY{p}{]}\PY{p}{:}
+            \PY{k}{for} \PY{n}{length\PYZus{}scale\PYZus{}bounds} \PY{o+ow}{in} \PY{p}{[}\PY{p}{(}\PY{l+m+mf}{1e\PYZhy{}5}\PY{p}{,} \PY{l+m+mf}{1e5}\PY{p}{)}\PY{p}{,} \PY{p}{(}\PY{l+m+mf}{1e\PYZhy{}10}\PY{p}{,} \PY{l+m+mf}{1e10}\PY{p}{)}\PY{p}{,} \PY{p}{(}\PY{l+m+mf}{1e\PYZhy{}15}\PY{p}{,} \PY{l+m+mf}{1e15}\PY{p}{)}\PY{p}{]}\PY{p}{:}
+                \PY{n}{kernel} \PY{o}{=} \PY{l+m+mf}{1.0} \PY{o}{*} \PY{n}{RBF}\PY{p}{(}\PY{n}{length\PYZus{}scale}\PY{p}{,} \PY{n}{length\PYZus{}scale\PYZus{}bounds}\PY{p}{)}
+                \PY{n}{gp} \PY{o}{=} \PY{n}{GaussianProcessRegressor}\PY{p}{(}\PY{n}{kernel}\PY{o}{=}\PY{n}{kernel}\PY{p}{,} \PY{n}{normalize\PYZus{}y}\PY{o}{=}\PY{k+kc}{True}\PY{p}{,} \PY{n}{alpha}\PY{o}{=}\PY{l+m+mf}{0.015}\PY{p}{)}
+                \PY{n}{gp}\PY{o}{.}\PY{n}{fit}\PY{p}{(}\PY{n}{X\PYZus{}train}\PY{p}{,} \PY{n}{y\PYZus{}train}\PY{p}{)}
+                \PY{n}{score} \PY{o}{=} \PY{n}{gp}\PY{o}{.}\PY{n}{score}\PY{p}{(}\PY{n}{X\PYZus{}test}\PY{p}{,} \PY{n}{y\PYZus{}test}\PY{p}{)}
+                \PY{n+nb}{print}\PY{p}{(}\PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{Score for RBF(}\PY{l+s+si}{\PYZob{}\PYZcb{}}\PY{l+s+s2}{, }\PY{l+s+si}{\PYZob{}\PYZcb{}}\PY{l+s+s2}{):}\PY{l+s+se}{\PYZbs{}t}\PY{l+s+si}{\PYZob{}\PYZcb{}}\PY{l+s+s2}{\PYZdq{}}\PY{o}{.}\PY{n}{format}\PY{p}{(}\PY{n}{length\PYZus{}scale}\PY{p}{,} \PY{n}{length\PYZus{}scale\PYZus{}bounds}\PY{p}{,} \PY{n}{score}\PY{p}{)}\PY{p}{)}
+                \PY{k}{if} \PY{n}{score} \PY{o}{\PYZgt{}} \PY{n}{best\PYZus{}score}\PY{p}{:}
+                    \PY{n}{best\PYZus{}score} \PY{o}{=} \PY{n}{score}
+                    \PY{n}{best\PYZus{}kernel} \PY{o}{=} \PY{n}{kernel}    
+        
+        \PY{n+nb}{print}\PY{p}{(}\PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{Best kernel: }\PY{l+s+si}{\PYZob{}\PYZcb{}}\PY{l+s+s2}{\PYZdq{}}\PY{o}{.}\PY{n}{format}\PY{p}{(}\PY{n}{best\PYZus{}kernel}\PY{p}{)}\PY{p}{)}            
+        \PY{n+nb}{print}\PY{p}{(}\PY{l+s+s2}{\PYZdq{}}\PY{l+s+se}{\PYZbs{}n}\PY{l+s+s2}{Best R\PYZca{}2 score: }\PY{l+s+si}{\PYZob{}:.2f\PYZcb{}}\PY{l+s+s2}{\PYZdq{}}\PY{o}{.}\PY{n}{format}\PY{p}{(}\PY{n}{best\PYZus{}score}\PY{p}{)}\PY{p}{)}
+\end{Verbatim}
+
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+Score for RBF(0.1, (1e-05, 100000.0)):	-0.6394021059421475
+Score for RBF(0.1, (1e-10, 10000000000.0)):	-0.6394021059421475
+Score for RBF(0.1, (1e-15, 1000000000000000.0)):	-0.6394021059421475
+Score for RBF(1.0, (1e-05, 100000.0)):	-0.12282063133160048
+Score for RBF(1.0, (1e-10, 10000000000.0)):	-0.6394014811313575
+Score for RBF(1.0, (1e-15, 1000000000000000.0)):	-0.6394014811313575
+Score for RBF(10, (1e-05, 100000.0)):	-0.12282137800412385
+Score for RBF(10, (1e-10, 10000000000.0)):	-0.6394014811313575
+Score for RBF(10, (1e-15, 1000000000000000.0)):	-0.6394014811313575
+Best kernel: 1**2 * RBF(length\_scale=1)
+
+Best R\^{}2 score: -0.12
+
+    \end{Verbatim}
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}64}]:} \PY{c+c1}{\PYZsh{} Training on full dataset with optimized kernel}
+         
+         \PY{c+c1}{\PYZsh{} Instanciate a Gaussian Process model}
+         \PY{n}{gp} \PY{o}{=} \PY{n}{GaussianProcessRegressor}\PY{p}{(}\PY{n}{kernel}\PY{o}{=}\PY{n}{best\PYZus{}kernel}\PY{p}{,} \PY{n}{normalize\PYZus{}y}\PY{o}{=}\PY{k+kc}{True}\PY{p}{,} \PY{n}{alpha}\PY{o}{=}\PY{l+m+mf}{0.015}\PY{p}{)}
+         
+         \PY{c+c1}{\PYZsh{} Fit to data using Maximum Likelihood Estimation of the parameters}
+         \PY{n}{gp}\PY{o}{.}\PY{n}{fit}\PY{p}{(}\PY{n}{X\PYZus{}train}\PY{p}{,} \PY{n}{y\PYZus{}train}\PY{p}{)}
+         
+         \PY{c+c1}{\PYZsh{} Make the prediction on the meshed x\PYZhy{}axis (ask for MSE as well)}
+         \PY{n}{y\PYZus{}pred}\PY{p}{,} \PY{n}{sigma} \PY{o}{=} \PY{n}{gp}\PY{o}{.}\PY{n}{predict}\PY{p}{(}\PY{n}{X\PYZus{}all}\PY{p}{,} \PY{n}{return\PYZus{}std}\PY{o}{=}\PY{k+kc}{True}\PY{p}{)}
+         
+         \PY{c+c1}{\PYZsh{} Plot the function, the prediction and the 95\PYZpc{} confidence interval based on}
+         \PY{c+c1}{\PYZsh{} the MSE}
+         \PY{n}{fig} \PY{o}{=} \PY{n}{plt}\PY{o}{.}\PY{n}{figure}\PY{p}{(}\PY{n}{figsize}\PY{o}{=}\PY{p}{(}\PY{l+m+mi}{14}\PY{p}{,}\PY{l+m+mi}{6}\PY{p}{)}\PY{p}{)}
+         \PY{n}{plt}\PY{o}{.}\PY{n}{plot}\PY{p}{(}\PY{n}{X\PYZus{}train}\PY{p}{,} \PY{n}{y\PYZus{}train}\PY{p}{,} \PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{r:}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,} \PY{n}{label}\PY{o}{=}\PY{l+s+sa}{u}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{Train Data}\PY{l+s+s1}{\PYZsq{}}\PY{p}{)}
+         \PY{n}{plt}\PY{o}{.}\PY{n}{plot}\PY{p}{(}\PY{n}{X\PYZus{}test}\PY{p}{,} \PY{n}{y\PYZus{}test}\PY{p}{,} \PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{g:}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,} \PY{n}{label}\PY{o}{=}\PY{l+s+sa}{u}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{Test Data}\PY{l+s+s1}{\PYZsq{}}\PY{p}{)}
+         \PY{n}{plt}\PY{o}{.}\PY{n}{plot}\PY{p}{(}\PY{n}{X\PYZus{}all}\PY{p}{,} \PY{n}{y\PYZus{}pred}\PY{p}{,} \PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{b\PYZhy{}}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,} \PY{n}{label}\PY{o}{=}\PY{l+s+sa}{u}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{Prediction}\PY{l+s+s1}{\PYZsq{}}\PY{p}{)}
+         \PY{n}{plt}\PY{o}{.}\PY{n}{fill}\PY{p}{(}\PY{n}{np}\PY{o}{.}\PY{n}{concatenate}\PY{p}{(}\PY{p}{[}\PY{n}{X\PYZus{}all}\PY{p}{,} \PY{n}{X\PYZus{}all}\PY{p}{[}\PY{p}{:}\PY{p}{:}\PY{o}{\PYZhy{}}\PY{l+m+mi}{1}\PY{p}{]}\PY{p}{]}\PY{p}{)}\PY{p}{,}
+                      \PY{n}{np}\PY{o}{.}\PY{n}{concatenate}\PY{p}{(}\PY{p}{[}\PY{n}{y\PYZus{}pred}\PY{o}{.}\PY{n}{ravel}\PY{p}{(}\PY{p}{)} \PY{o}{\PYZhy{}} \PY{l+m+mf}{1.9600} \PY{o}{*} \PY{n}{sigma}\PY{p}{,} \PY{p}{(}\PY{n}{y\PYZus{}pred}\PY{o}{.}\PY{n}{ravel}\PY{p}{(}\PY{p}{)} \PY{o}{+} \PY{l+m+mf}{1.9600} \PY{o}{*} \PY{n}{sigma}\PY{p}{)}\PY{p}{[}\PY{p}{:}\PY{p}{:}\PY{o}{\PYZhy{}}\PY{l+m+mi}{1}\PY{p}{]}\PY{p}{]}\PY{p}{)}\PY{p}{,}
+                      \PY{n}{alpha}\PY{o}{=}\PY{o}{.}\PY{l+m+mi}{5}\PY{p}{,} \PY{n}{fc}\PY{o}{=}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{b}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,} \PY{n}{ec}\PY{o}{=}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{None}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,} \PY{n}{label}\PY{o}{=}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{95}\PY{l+s+si}{\PYZpc{} c}\PY{l+s+s1}{onfidence interval}\PY{l+s+s1}{\PYZsq{}}\PY{p}{)}
+         \PY{n}{plt}\PY{o}{.}\PY{n}{ylim}\PY{p}{(}\PY{l+m+mi}{0}\PY{p}{,} \PY{l+m+mi}{3}\PY{p}{)}
+         \PY{n}{plt}\PY{o}{.}\PY{n}{title}\PY{p}{(}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{Trained on full dataset}\PY{l+s+s1}{\PYZsq{}}\PY{p}{)}
+         \PY{n}{plt}\PY{o}{.}\PY{n}{legend}\PY{p}{(}\PY{n}{loc}\PY{o}{=}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{best}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,} \PY{n}{prop}\PY{o}{=}\PY{p}{\PYZob{}}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{size}\PY{l+s+s1}{\PYZsq{}}\PY{p}{:} \PY{l+m+mi}{12}\PY{p}{\PYZcb{}}\PY{p}{)}
+         \PY{n}{plt}\PY{o}{.}\PY{n}{show}\PY{p}{(}\PY{p}{)}
+         
+         \PY{n+nb}{print}\PY{p}{(}\PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{R\PYZca{}2 test score for optimized parameters: }\PY{l+s+si}{\PYZob{}\PYZcb{}}\PY{l+s+s2}{\PYZdq{}}\PY{o}{.}\PY{n}{format}\PY{p}{(}\PY{n}{gp}\PY{o}{.}\PY{n}{score}\PY{p}{(}\PY{n}{X\PYZus{}test}\PY{p}{,} \PY{n}{y\PYZus{}test}\PY{p}{)}\PY{p}{)}\PY{p}{)}
+\end{Verbatim}
+
+
+    \begin{center}
+    \adjustimage{max size={0.9\linewidth}{0.9\paperheight}}{output_43_0.pdf}
+    \end{center}
+    { \hspace*{\fill} \\}
+    
+    \begin{Verbatim}[commandchars=\\\{\}]
+R\^{}2 test score for optimized parameters: -0.12282063133160048
+
+    \end{Verbatim}
+
+    At first we tried to use the suggested kernel with the default
+parameters. Beacuse of the noisy data, the GP heavily overfitted, giving
+very low results in the test data evaluation. For this reason, we
+introduced a regularization hyperparameter (alpha), and after some tests
+we found 0.015 to be its optimal value in this particular case. After
+the regularization, the GP already gave much better performances, with
+definitely less overfitting and a thighter confidence interval. Then, we
+manually tuned the kernel parameters in order to achieve an even higher
+R\^{}2 score.
+
+    \subsection{A data mining challenge (4
+points)}\label{a-data-mining-challenge-4-points}
+
+    The goal here is to use everything you have learned to build the best
+model for a given classification task. We will use two tasks hosted on
+OpenML, so you will all receive the same cross-validation splits, and
+your model will be evaluated on the server. The goal is to reasonably
+select algorithms and hyperparameter settings to obtain the best model.
+You can also do model selection, pipeline building, and parameter
+optimization as you have done before. Skeleton code is provided in the
+OpenML tutorial. You need to optimize the AUROC score (calculated using
+10-fold cross0-validation).
+
+\begin{itemize}
+\item
+  Challenge 1: Detects accents in speech data.
+
+  \begin{itemize}
+  \tightlist
+  \item
+    The OpenML Task ID is 167132: https://www.openml.org/t/167132
+  \item
+    The dataset description can be found here:
+    https://www.openml.org/d/40910
+  \item
+    Leaderboard: https://www.openml.org/t/167132\#!people
+  \end{itemize}
+\item
+  Challenge 2: Image recognition (CIFAR-10 subsample).
+
+  \begin{itemize}
+  \tightlist
+  \item
+    The OpenML Task ID is 167133: https://www.openml.org/t/167133
+  \item
+    The dataset description can be found here:
+    https://www.openml.org/d/40926
+  \item
+    Leaderboard: https://www.openml.org/t/167133\#!people
+  \item
+    Note that this is a high-dimensional dataset (and not so small).
+    Think carefully about how to run experiments in the time available.
+  \end{itemize}
+\item
+  You are able to see the solutions of others (by clicking in the
+  timeline or run list), so you can learn from prior experiments (what
+  seems to work, how long does it take to train certain models, ...).
+  Resubmission of the exact same solution is not possible.
+\item
+  You can share one account (one API key) per team. In case you use two,
+  we take the one that performs best.
+\item
+  Document the different experiments that you ran in this notebook
+  (running them can of course be done outside of the notebook). For each
+  experiment, provide a description of how and why you chose the
+  algorithms and parameters that you submitted. Reason about which
+  experiments to try, don't just do an immense random search.
+\item
+  Points are rewarded as follows (independently for each task):
+
+  \begin{itemize}
+  \tightlist
+  \item
+    1 point for the breadth of experiments you ran (algorithms,
+    pipelines, hyperparameter settings)
+  \item
+    1 point for reasoning/insight and interpretation of the results
+  \item
+    1 (bonus) point for every team who has uploaded the best solution
+    thus far \textbf{on AUC} (who reaches the top of the leaderboard at
+    any moment during the assignment)
+
+    \begin{itemize}
+    \tightlist
+    \item
+      Exception: simply repeating top models with nearly identical
+      hyperparameters. This will be checked on the timeline.
+    \item
+      Note: On the leaderboard page, the 'frontier' line is drawn, and
+      your top ranking is also shown in the leaderboard.
+    \end{itemize}
+  \end{itemize}
+\end{itemize}
+
+Note: Report the AUC scores of your best models in your report as well.
+In case of issues with OpenML we will use the experiments and scores
+mentioned your report.
+
+    \subsubsection{Challenge 1}\label{challenge-1}
+
+    The goal of this challenge is a supervised classification task. The
+dataset contains real world data from recorded English language.
+
+First, we tried different classifiers with scaling and without on a grid
+search to get a general idea. We did search over
+neighbors.KNeighborsClassifier(), ensemble.RandomForestClassifier(),
+ensemble.GradientBoostingClassifier(),
+linear\_model.LogisticRegression(), svm.SVC() and
+gaussian\_process.GaussianProcessClassifier().
+
+We compared our conclusions with the perfomances already achieved on the
+OpenML leaderboard and we decided to focus on kNN classifier. We also
+used dimensionality reduction technique PCA. Next, we searced for
+optimal number of k neighbors for roc\_auc and accuracy score.
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor} }]:} \PY{k+kn}{from} \PY{n+nn}{sklearn} \PY{k}{import} \PY{n}{pipeline}\PY{p}{,} \PY{n}{ensemble}\PY{p}{,} \PY{n}{preprocessing}\PY{p}{,} \PY{n}{decomposition}\PY{p}{,} \PY{n}{neighbors}
+        \PY{k+kn}{from} \PY{n+nn}{sklearn}\PY{n+nn}{.}\PY{n+nn}{metrics} \PY{k}{import} \PY{n}{roc\PYZus{}auc\PYZus{}score}
+        \PY{k+kn}{from} \PY{n+nn}{sklearn}\PY{n+nn}{.}\PY{n+nn}{model\PYZus{}selection} \PY{k}{import} \PY{n}{GridSearchCV}
+        \PY{k+kn}{from} \PY{n+nn}{sklearn}\PY{n+nn}{.}\PY{n+nn}{decomposition} \PY{k}{import} \PY{n}{PCA}
+        \PY{k+kn}{from} \PY{n+nn}{sklearn}\PY{n+nn}{.}\PY{n+nn}{feature\PYZus{}selection} \PY{k}{import} \PY{n}{SelectKBest}\PY{p}{,} \PY{n}{chi2}
+        
+        \PY{n}{task} \PY{o}{=} \PY{n}{oml}\PY{o}{.}\PY{n}{tasks}\PY{o}{.}\PY{n}{get\PYZus{}task}\PY{p}{(}\PY{l+m+mi}{167132}\PY{p}{)}
+        
+        \PY{n}{data1} \PY{o}{=} \PY{n}{oml}\PY{o}{.}\PY{n}{datasets}\PY{o}{.}\PY{n}{get\PYZus{}dataset}\PY{p}{(}\PY{l+m+mi}{40910}\PY{p}{)}
+        \PY{n}{X}\PY{p}{,} \PY{n}{y} \PY{o}{=} \PY{n}{data1}\PY{o}{.}\PY{n}{get\PYZus{}data}\PY{p}{(}\PY{n}{target}\PY{o}{=}\PY{n}{data1}\PY{o}{.}\PY{n}{default\PYZus{}target\PYZus{}attribute}\PY{p}{)}\PY{p}{;}
+        
+        \PY{n}{X\PYZus{}train}\PY{p}{,} \PY{n}{X\PYZus{}test}\PY{p}{,} \PY{n}{y\PYZus{}train}\PY{p}{,} \PY{n}{y\PYZus{}test} \PY{o}{=} \PY{n}{train\PYZus{}test\PYZus{}split}\PY{p}{(}\PY{n}{X}\PY{p}{,} \PY{n}{y}\PY{p}{)}
+\end{Verbatim}
+
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor} }]:} \PY{n}{scoring}\PY{o}{=}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{roc\PYZus{}auc}\PY{l+s+s1}{\PYZsq{}}
+        
+        \PY{n}{cvk\PYZus{}scores} \PY{o}{=} \PY{p}{[}\PY{p}{]}
+        \PY{n}{auc\PYZus{}scores} \PY{o}{=} \PY{p}{[}\PY{p}{]}
+        \PY{n}{j} \PY{o}{=} \PY{n+nb}{range}\PY{p}{(}\PY{l+m+mi}{1}\PY{p}{,}\PY{l+m+mi}{35}\PY{p}{)}
+        
+        \PY{k}{for} \PY{n}{k} \PY{o+ow}{in} \PY{n}{j}\PY{p}{:}
+            \PY{n}{pipe} \PY{o}{=} \PY{n}{pipeline}\PY{o}{.}\PY{n}{Pipeline}\PY{p}{(}\PY{n}{steps}\PY{o}{=}\PY{p}{[}
+                    \PY{p}{(}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{Scaler}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,} \PY{n}{preprocessing}\PY{o}{.}\PY{n}{StandardScaler}\PY{p}{(}\PY{p}{)}\PY{p}{)}\PY{p}{,}
+                    \PY{p}{(}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{reduce\PYZus{}dim}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,} \PY{n}{PCA}\PY{p}{(}\PY{p}{)}\PY{p}{)}\PY{p}{,}
+                    \PY{p}{(}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{Classifier}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,} \PY{n}{neighbors}\PY{o}{.}\PY{n}{KNeighborsClassifier}\PY{p}{(}\PY{n}{n\PYZus{}neighbors}\PY{o}{=}\PY{n}{k}\PY{p}{,} \PY{n}{n\PYZus{}jobs}\PY{o}{=}\PY{o}{\PYZhy{}}\PY{l+m+mi}{1}\PY{p}{)}\PY{p}{)}
+                   \PY{p}{]}\PY{p}{)}
+            \PY{n}{scores\PYZus{}auc} \PY{o}{=} \PY{n}{cross\PYZus{}val\PYZus{}score}\PY{p}{(}\PY{n}{pipe}\PY{p}{,} \PY{n}{X}\PY{p}{,} \PY{n}{y}\PY{p}{,} \PY{n}{cv}\PY{o}{=}\PY{l+m+mi}{10}\PY{p}{,} \PY{n}{scoring}\PY{o}{=}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{roc\PYZus{}auc}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,} \PY{n}{n\PYZus{}jobs}\PY{o}{=}\PY{o}{\PYZhy{}}\PY{l+m+mi}{1}\PY{p}{)}
+            \PY{n}{scores} \PY{o}{=} \PY{n}{cross\PYZus{}val\PYZus{}score}\PY{p}{(}\PY{n}{pipe}\PY{p}{,} \PY{n}{X}\PY{p}{,} \PY{n}{y}\PY{p}{,} \PY{n}{cv}\PY{o}{=}\PY{l+m+mi}{10}\PY{p}{,} \PY{n}{scoring}\PY{o}{=}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{accuracy}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,} \PY{n}{n\PYZus{}jobs}\PY{o}{=}\PY{o}{\PYZhy{}}\PY{l+m+mi}{1}\PY{p}{)}
+            \PY{n}{cvk\PYZus{}scores}\PY{o}{.}\PY{n}{append}\PY{p}{(}\PY{n}{scores}\PY{o}{.}\PY{n}{mean}\PY{p}{(}\PY{p}{)}\PY{p}{)}
+            \PY{n}{auc\PYZus{}scores}\PY{o}{.}\PY{n}{append}\PY{p}{(}\PY{n}{scores\PYZus{}auc}\PY{o}{.}\PY{n}{mean}\PY{p}{(}\PY{p}{)}\PY{p}{)}
+            
+        \PY{n}{MSEk} \PY{o}{=} \PY{p}{[}\PY{n}{x} \PY{k}{for} \PY{n}{x} \PY{o+ow}{in} \PY{n}{cvk\PYZus{}scores}\PY{p}{]}
+        \PY{n}{MSE\PYZus{}auc} \PY{o}{=} \PY{p}{[}\PY{n}{x} \PY{k}{for} \PY{n}{x} \PY{o+ow}{in} \PY{n}{auc\PYZus{}scores}\PY{p}{]}
+        
+        \PY{n}{optimal\PYZus{}k} \PY{o}{=} \PY{n}{j}\PY{p}{[}\PY{n}{MSEk}\PY{o}{.}\PY{n}{index}\PY{p}{(}\PY{n+nb}{min}\PY{p}{(}\PY{n}{MSEk}\PY{p}{)}\PY{p}{)}\PY{p}{]}
+        \PY{n}{optimal\PYZus{}auc\PYZus{}k} \PY{o}{=} \PY{n}{j}\PY{p}{[}\PY{n}{MSE\PYZus{}auc}\PY{o}{.}\PY{n}{index}\PY{p}{(}\PY{n+nb}{min}\PY{p}{(}\PY{n}{MSE\PYZus{}auc}\PY{p}{)}\PY{p}{)}\PY{p}{]}
+        \PY{n+nb}{print}\PY{p}{(}\PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{The optimal number of k neighbors is }\PY{l+s+s2}{\PYZdq{}}\PY{p}{,} \PY{n}{optimal\PYZus{}k}\PY{p}{)}
+        \PY{n+nb}{print}\PY{p}{(}\PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{The optimal number of k neighbors is }\PY{l+s+s2}{\PYZdq{}}\PY{p}{,} \PY{n}{optimal\PYZus{}auc\PYZus{}k}\PY{p}{)}
+\end{Verbatim}
+
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}67}]:} \PY{n}{plt}\PY{o}{.}\PY{n}{plot}\PY{p}{(}\PY{n}{j}\PY{p}{,} \PY{n}{MSE\PYZus{}auc}\PY{p}{,} \PY{n}{label} \PY{o}{=} \PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{AUC}\PY{l+s+s1}{\PYZsq{}}\PY{p}{)}
+         \PY{n}{plt}\PY{o}{.}\PY{n}{plot}\PY{p}{(}\PY{n}{j}\PY{p}{,} \PY{n}{MSEk}\PY{p}{,} \PY{n}{label} \PY{o}{=} \PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{kNN}\PY{l+s+s1}{\PYZsq{}}\PY{p}{)}
+         \PY{n}{plt}\PY{o}{.}\PY{n}{legend}\PY{p}{(}\PY{p}{)}
+         \PY{n}{plt}\PY{o}{.}\PY{n}{ylabel}\PY{p}{(}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{r}\PY{l+s+s1}{\PYZsq{}}\PY{p}{)}
+         \PY{n}{plt}\PY{o}{.}\PY{n}{show}\PY{p}{(}\PY{p}{)}
+         
+         \PY{n}{optimal\PYZus{}k} \PY{o}{=} \PY{n}{j}\PY{p}{[}\PY{n}{MSEk}\PY{o}{.}\PY{n}{index}\PY{p}{(}\PY{n+nb}{max}\PY{p}{(}\PY{n}{MSEk}\PY{p}{)}\PY{p}{)}\PY{p}{]}
+         \PY{n}{optimal\PYZus{}auc\PYZus{}k} \PY{o}{=} \PY{n}{j}\PY{p}{[}\PY{n}{MSE\PYZus{}auc}\PY{o}{.}\PY{n}{index}\PY{p}{(}\PY{n+nb}{max}\PY{p}{(}\PY{n}{MSE\PYZus{}auc}\PY{p}{)}\PY{p}{)}\PY{p}{]}
+         \PY{n+nb}{print}\PY{p}{(}\PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{The optimal number of k neighbors is }\PY{l+s+s2}{\PYZdq{}}\PY{p}{,} \PY{n}{optimal\PYZus{}k}\PY{p}{)}
+         \PY{n+nb}{print}\PY{p}{(}\PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{The optimal number of k neighbors is }\PY{l+s+s2}{\PYZdq{}}\PY{p}{,} \PY{n}{optimal\PYZus{}auc\PYZus{}k}\PY{p}{)}
+         \PY{n}{MSE\PYZus{}auc}\PY{p}{[}\PY{l+m+mi}{8}\PY{p}{]}
+\end{Verbatim}
+
+
+    \begin{center}
+    \adjustimage{max size={0.9\linewidth}{0.9\paperheight}}{output_51_0.pdf}
+    \end{center}
+    { \hspace*{\fill} \\}
+    
+    \begin{Verbatim}[commandchars=\\\{\}]
+The optimal number of k neighbors is  3
+The optimal number of k neighbors is  6
+
+    \end{Verbatim}
+
+\begin{Verbatim}[commandchars=\\\{\}]
+{\color{outcolor}Out[{\color{outcolor}67}]:} 0.87024755128065989
+\end{Verbatim}
+            
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor} }]:} \PY{n}{pipe} \PY{o}{=} \PY{n}{pipeline}\PY{o}{.}\PY{n}{Pipeline}\PY{p}{(}\PY{n}{steps}\PY{o}{=}\PY{p}{[}
+                \PY{p}{(}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{Scaler}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,} \PY{n}{preprocessing}\PY{o}{.}\PY{n}{StandardScaler}\PY{p}{(}\PY{p}{)}\PY{p}{)}\PY{p}{,}
+                \PY{p}{(}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{reduce\PYZus{}dim}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,} \PY{n}{PCA}\PY{p}{(}\PY{p}{)}\PY{p}{)}\PY{p}{,}
+                \PY{p}{(}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{Classifier}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,} \PY{n}{neighbors}\PY{o}{.}\PY{n}{KNeighborsClassifier}\PY{p}{(}\PY{n}{n\PYZus{}neighbors}\PY{o}{=}\PY{n}{k}\PY{p}{,} \PY{n}{n\PYZus{}jobs}\PY{o}{=}\PY{o}{\PYZhy{}}\PY{l+m+mi}{1}\PY{p}{)}\PY{p}{)}
+               \PY{p}{]}\PY{p}{)}
+        \PY{n}{scores\PYZus{}auc} \PY{o}{=} \PY{n}{cross\PYZus{}val\PYZus{}score}\PY{p}{(}\PY{n}{pipe}\PY{p}{,} \PY{n}{X\PYZus{}train}\PY{p}{,} \PY{n}{y\PYZus{}train}\PY{p}{,} \PY{n}{cv}\PY{o}{=}\PY{l+m+mi}{10}\PY{p}{,} \PY{n}{scoring}\PY{o}{=}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{roc\PYZus{}auc}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,} \PY{n}{n\PYZus{}jobs}\PY{o}{=}\PY{o}{\PYZhy{}}\PY{l+m+mi}{1}\PY{p}{)}
+        \PY{n}{scores} \PY{o}{=} \PY{n}{cross\PYZus{}val\PYZus{}score}\PY{p}{(}\PY{n}{pipe}\PY{p}{,} \PY{n}{X\PYZus{}train}\PY{p}{,} \PY{n}{y\PYZus{}train}\PY{p}{,} \PY{n}{cv}\PY{o}{=}\PY{l+m+mi}{10}\PY{p}{,} \PY{n}{scoring}\PY{o}{=}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{accuracy}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,} \PY{n}{n\PYZus{}jobs}\PY{o}{=}\PY{o}{\PYZhy{}}\PY{l+m+mi}{1}\PY{p}{)}
+        \PY{n+nb}{print}\PY{p}{(}\PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{Mean cross\PYZhy{}validation score: }\PY{l+s+s2}{\PYZdq{}}\PY{p}{,} \PY{n}{scores\PYZus{}auc}\PY{o}{.}\PY{n}{mean}\PY{p}{(}\PY{p}{)}\PY{p}{)}
+        \PY{n+nb}{print}\PY{p}{(}\PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{Mean cross\PYZhy{}validation score: }\PY{l+s+s2}{\PYZdq{}}\PY{p}{,} \PY{n}{scores}\PY{o}{.}\PY{n}{mean}\PY{p}{(}\PY{p}{)}\PY{p}{)}
+\end{Verbatim}
+
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor} }]:} \PY{n}{pipe} \PY{o}{=} \PY{n}{pipeline}\PY{o}{.}\PY{n}{Pipeline}\PY{p}{(}\PY{n}{steps}\PY{o}{=}\PY{p}{[}
+                    \PY{p}{(}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{Scaler}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,} \PY{n}{imblearn}\PY{o}{.}\PY{n}{over\PYZus{}sampling}\PY{o}{.}\PY{n}{adasyn}\PY{o}{.}\PY{n}{ADASYN}\PY{p}{(}\PY{p}{)}\PY{p}{)}\PY{p}{,}
+                    \PY{p}{(}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{reduce\PYZus{}dim}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,} \PY{n}{PCA}\PY{p}{(}\PY{p}{)}\PY{p}{)}\PY{p}{,}
+                    \PY{p}{(}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{Classifier}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,} \PY{n}{neighbors}\PY{o}{.}\PY{n}{KNeighborsClassifier}\PY{p}{(}\PY{n}{n\PYZus{}neighbors}\PY{o}{=}\PY{l+m+mi}{6}\PY{p}{,} \PY{n}{n\PYZus{}jobs}\PY{o}{=}\PY{o}{\PYZhy{}}\PY{l+m+mi}{1}\PY{p}{)}\PY{p}{)}
+                   \PY{p}{]}\PY{p}{)}
+        
+        \PY{n}{flow} \PY{o}{=} \PY{n}{oml}\PY{o}{.}\PY{n}{flows}\PY{o}{.}\PY{n}{sklearn\PYZus{}to\PYZus{}flow}\PY{p}{(}\PY{n}{pipe}\PY{p}{)}
+        \PY{n}{run} \PY{o}{=} \PY{n}{oml}\PY{o}{.}\PY{n}{runs}\PY{o}{.}\PY{n}{run\PYZus{}flow\PYZus{}on\PYZus{}task}\PY{p}{(}\PY{n}{task}\PY{p}{,} \PY{n}{flow}\PY{p}{)}
+        \PY{n}{myrun} \PY{o}{=} \PY{n}{run}\PY{o}{.}\PY{n}{publish}\PY{p}{(}\PY{p}{)}
+        \PY{n+nb}{print}\PY{p}{(}\PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{Uploaded to http://www.openml.org/r/}\PY{l+s+s2}{\PYZdq{}} \PY{o}{+} \PY{n+nb}{str}\PY{p}{(}\PY{n}{myrun}\PY{o}{.}\PY{n}{run\PYZus{}id}\PY{p}{)}\PY{p}{)}
+\end{Verbatim}
+
+
+    \subsubsection{Challenge 2}\label{challenge-2}
+
+    The goal of this challenge is a supervised classification task. The
+dataset is a subset of CIFAR10: it consists of 20,000 labeled instances
+of 32x32 color images, classified into 10 different classes. Therefore
+we are facing an image classification problem: this implies
+high-dimensional data.
+
+At first we considered using SVM, which has good performances on
+high-dimensional data, but the size of the dataset would have prevented
+us from achieving an acceptable efficiency. On the other hand, we
+excluded Gaussian Processes because they do not perform well with
+high-dimensional data. Because of the size of the dataset that we are
+using to train the model, we excluded high bias/low variance classifiers
+(such as Naive Bayes) to focus on low bias/high variance ones (with the
+exception of Gradient Boosting, which can be very effective on big
+datasets, if opportunely tuned).
+
+We compared our conclusions with the perfomances already achieved on the
+OpenML leaderboard and we decided to focus on three particular
+classifiers: K-Neighbors, Random Forest and Gradient Boosting. The
+experiments and the hyperparameters tuning were done outside of this
+notebook for efficiency reasons, here we report the results.
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor} }]:} \PY{k+kn}{from} \PY{n+nn}{sklearn} \PY{k}{import} \PY{n}{pipeline}\PY{p}{,} \PY{n}{ensemble}\PY{p}{,} \PY{n}{preprocessing}\PY{p}{,} \PY{n}{decomposition}\PY{p}{,} \PY{n}{neighbors}
+        
+        \PY{n}{task} \PY{o}{=} \PY{n}{oml}\PY{o}{.}\PY{n}{tasks}\PY{o}{.}\PY{n}{get\PYZus{}task}\PY{p}{(}\PY{l+m+mi}{167133}\PY{p}{)}
+\end{Verbatim}
+
+
+    We experimented with different types of scalers and we found that the
+K-Neighbors Classifier gave the best performances when paired with a
+StandardScaler. Then we tuned the number of neighbors of the classifier:
+the optimal value resulted to be 100 neigbhors. When run on OML, this
+model achieved an AUC score of 0,7959.
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}13}]:} \PY{c+c1}{\PYZsh{}KNeighbors}
+         
+         \PY{n}{pipe} \PY{o}{=} \PY{n}{pipeline}\PY{o}{.}\PY{n}{Pipeline}\PY{p}{(}\PY{n}{steps}\PY{o}{=}\PY{p}{[}
+                     \PY{p}{(}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{Scaler}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,} \PY{n}{preprocessing}\PY{o}{.}\PY{n}{StandardScaler}\PY{p}{(}\PY{p}{)}\PY{p}{)}\PY{p}{,}
+                     \PY{p}{(}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{Classifier}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,} \PY{n}{neighbors}\PY{o}{.}\PY{n}{KNeighborsClassifier}\PY{p}{(}\PY{n}{n\PYZus{}neighbors}\PY{o}{=}\PY{l+m+mi}{100}\PY{p}{)}\PY{p}{)}
+                    \PY{p}{]}\PY{p}{)}
+         
+         \PY{n}{flow} \PY{o}{=} \PY{n}{oml}\PY{o}{.}\PY{n}{flows}\PY{o}{.}\PY{n}{sklearn\PYZus{}to\PYZus{}flow}\PY{p}{(}\PY{n}{pipe}\PY{p}{)}
+         \PY{n}{run} \PY{o}{=} \PY{n}{oml}\PY{o}{.}\PY{n}{runs}\PY{o}{.}\PY{n}{run\PYZus{}flow\PYZus{}on\PYZus{}task}\PY{p}{(}\PY{n}{task}\PY{p}{,} \PY{n}{flow}\PY{p}{)}
+         \PY{n}{myrun} \PY{o}{=} \PY{n}{run}\PY{o}{.}\PY{n}{publish}\PY{p}{(}\PY{p}{)}
+         \PY{n+nb}{print}\PY{p}{(}\PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{Uploaded to http://www.openml.org/r/}\PY{l+s+s2}{\PYZdq{}} \PY{o}{+} \PY{n+nb}{str}\PY{p}{(}\PY{n}{myrun}\PY{o}{.}\PY{n}{run\PYZus{}id}\PY{p}{)}\PY{p}{)}
+\end{Verbatim}
+
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+Uploaded to http://www.openml.org/r/8885393
+
+    \end{Verbatim}
+
+    When using the Random Forest Classifier, we found that the best method
+to preprocess the data was to use MinMaxScaler. We also tried to recude
+the dimensionality of the dataset using PCA, but the results did not
+improve, showing that this model works well with high-dimensional data.
+Then, we tuned the 'max\_features' and 'n\_estimators' hyperparameters:
+the optimal values turned out to be 60 and 200 respectively. The AUC
+score obtained for this model was 0,8485.
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}16}]:} \PY{c+c1}{\PYZsh{}RandomForest}
+         
+         \PY{n}{pipe} \PY{o}{=} \PY{n}{pipeline}\PY{o}{.}\PY{n}{Pipeline}\PY{p}{(}\PY{n}{steps}\PY{o}{=}\PY{p}{[}
+                     \PY{p}{(}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{Scaler}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,} \PY{n}{preprocessing}\PY{o}{.}\PY{n}{MinMaxScaler}\PY{p}{(}\PY{p}{)}\PY{p}{)}\PY{p}{,}
+                     \PY{p}{(}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{Classifier}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,} \PY{n}{ensemble}\PY{o}{.}\PY{n}{RandomForestClassifier}\PY{p}{(}\PY{n}{max\PYZus{}features}\PY{o}{=}\PY{l+m+mi}{60}\PY{p}{,} \PY{n}{n\PYZus{}estimators}\PY{o}{=}\PY{l+m+mi}{200}\PY{p}{)}\PY{p}{)}
+                    \PY{p}{]}\PY{p}{)}
+         
+         \PY{n}{flow} \PY{o}{=} \PY{n}{oml}\PY{o}{.}\PY{n}{flows}\PY{o}{.}\PY{n}{sklearn\PYZus{}to\PYZus{}flow}\PY{p}{(}\PY{n}{pipe}\PY{p}{)}
+         \PY{n}{run} \PY{o}{=} \PY{n}{oml}\PY{o}{.}\PY{n}{runs}\PY{o}{.}\PY{n}{run\PYZus{}flow\PYZus{}on\PYZus{}task}\PY{p}{(}\PY{n}{task}\PY{p}{,} \PY{n}{flow}\PY{p}{)}
+         \PY{n}{myrun} \PY{o}{=} \PY{n}{run}\PY{o}{.}\PY{n}{publish}\PY{p}{(}\PY{p}{)}
+         \PY{n+nb}{print}\PY{p}{(}\PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{Uploaded to http://www.openml.org/r/}\PY{l+s+s2}{\PYZdq{}} \PY{o}{+} \PY{n+nb}{str}\PY{p}{(}\PY{n}{myrun}\PY{o}{.}\PY{n}{run\PYZus{}id}\PY{p}{)}\PY{p}{)}
+\end{Verbatim}
+
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+Uploaded to http://www.openml.org/r/8885412
+
+    \end{Verbatim}
+
+    The Gradient Boosting classifier gave the best results when used in a
+pipeline together with a Robust Scaler. From our experiments, it
+resulted that the optimal value fo the 'max\_depth' parameter was quite
+high (7), but for efficiency reasons we tuned it down to 5. We also set
+the 'max\_feauters' parameter to 40, to achieve faster performances. The
+AUC score achieved with this classifier was 0,8706.
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}3}]:} \PY{c+c1}{\PYZsh{}GradientBoosting}
+        
+        \PY{n}{pipe} \PY{o}{=} \PY{n}{pipeline}\PY{o}{.}\PY{n}{Pipeline}\PY{p}{(}\PY{n}{steps}\PY{o}{=}\PY{p}{[}
+                    \PY{p}{(}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{Scaler}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,} \PY{n}{preprocessing}\PY{o}{.}\PY{n}{RobustScaler}\PY{p}{(}\PY{p}{)}\PY{p}{)}\PY{p}{,}
+                    \PY{p}{(}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{Classifier}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,} \PY{n}{ensemble}\PY{o}{.}\PY{n}{GradientBoostingClassifier}\PY{p}{(}\PY{n}{learning\PYZus{}rate}\PY{o}{=}\PY{l+m+mf}{0.1}\PY{p}{,} \PY{n}{max\PYZus{}depth}\PY{o}{=}\PY{l+m+mi}{5}\PY{p}{,} \PY{n}{max\PYZus{}features}\PY{o}{=}\PY{l+m+mi}{40}\PY{p}{,} \PY{n}{n\PYZus{}estimators}\PY{o}{=}\PY{l+m+mi}{100}\PY{p}{)}\PY{p}{)}
+                   \PY{p}{]}\PY{p}{)}
+        
+        \PY{n}{flow} \PY{o}{=} \PY{n}{oml}\PY{o}{.}\PY{n}{flows}\PY{o}{.}\PY{n}{sklearn\PYZus{}to\PYZus{}flow}\PY{p}{(}\PY{n}{pipe}\PY{p}{)}
+        \PY{n}{run} \PY{o}{=} \PY{n}{oml}\PY{o}{.}\PY{n}{runs}\PY{o}{.}\PY{n}{run\PYZus{}flow\PYZus{}on\PYZus{}task}\PY{p}{(}\PY{n}{task}\PY{p}{,} \PY{n}{flow}\PY{p}{)}
+        \PY{n}{myrun} \PY{o}{=} \PY{n}{run}\PY{o}{.}\PY{n}{publish}\PY{p}{(}\PY{p}{)}
+        \PY{n+nb}{print}\PY{p}{(}\PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{Uploaded to http://www.openml.org/r/}\PY{l+s+s2}{\PYZdq{}} \PY{o}{+} \PY{n+nb}{str}\PY{p}{(}\PY{n}{myrun}\PY{o}{.}\PY{n}{run\PYZus{}id}\PY{p}{)}\PY{p}{)}
+\end{Verbatim}
+
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+Uploaded to http://www.openml.org/r/8886484
+
+    \end{Verbatim}
+
+    \textbf{Conclusions}
+
+Out of three classifiers we selected, the one with the best performance
+resulted to be Gradient Boosting, shortly followed by Random Forest. The
+third classifier, K-Neighbors, gave sufficiently good performances when
+paired with a Standard Scaler, but still worse than the other two. This
+outcome confirms our original hypothesis: generally, variance-reduction
+techniques are more fit for classification tasks on large datasets with
+high-dimensional data but, if carefully tuned, Gradient Boosting (which
+is bias-reduction) gives equally good or even better results. The main
+problem in tuning the Gradeint Boosting classifier was the running time:
+contrarily to Random Forest, this kind of classifier can not parallelize
+and therefore for a high number of iterations the time becomes
+impratically long. We found a solution to this by limiting the number of
+features to consider when choosing the best slipt, using the
+max\_features parameter. We concluded that, if opportunely tuned, the
+Gradient Boosting classifier can achieve a good tradeoof between AUC
+score and fastness and is therefore the best possible solution for this
+task.
+
+
+    % Add a bibliography block to the postdoc
+    
+    
+    
+    \end{document}
